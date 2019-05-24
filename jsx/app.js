@@ -1,21 +1,26 @@
-var template = (
-<div>
-    <h1>Jordan</h1> 
-    <p>INFORMATION HERE</p>
-    <ol>
-        <li>Item one</li>
-        <li>Item two</li>
-    </ol>
-</div>
-);
+ function getLocation(location){
+    if(location){
+        return <p>location: {location}</p>;
+    }
+}
 
-var templateTwo = (
+let user = {
+    name: 'Jordan',
+    age: 31,
+    location: "Utah",
+}
+
+let template = (
     <div>
-        <h1>Jordan</h1> 
-        <p>Age 31</p>
-        <p>Utah</p>
+        <h1>{user.name ? user.name : 'Anonymous'}</h1> 
+        {(user.age && user.age >= 18) && <p>Age {user.age}</p>}
+        {getLocation(user.location)}
     </div>
     );
-
-var appRoot = document.getElementById('app');
-ReactDOM.render(template, appRoot);
+    
+   
+    
+    
+    let appRoot = document.getElementById('app');
+    ReactDOM.render(template, appRoot);
+    
