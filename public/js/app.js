@@ -1,5 +1,6 @@
 'use strict';
 
+var appRoot = document.getElementById('app');
 var count = 0;
 var addOne = function addOne() {
   count++;
@@ -20,7 +21,7 @@ var reset = function reset() {
 var renderCounterApp = function renderCounterApp() {
   var templateTwo = React.createElement(
     'div',
-    { 'class': 'container' },
+    { 'class': 'count' },
     React.createElement(
       'h1',
       null,
