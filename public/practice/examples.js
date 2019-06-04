@@ -1,3 +1,4 @@
+const appRoot = document.getElementById('app')
 let count = 0;
 const addOne = () => {
   count++;
@@ -18,7 +19,7 @@ const reset = () => {
 
 const renderCounterApp = () => {
   const templateTwo = (
-    <div class="container">
+    <div class="count">
       <h1>Count: {count}</h1>
       <button onClick={addOne} className="button">+1</button>
       <button onClick={minusOne} className="button">-1</button>
