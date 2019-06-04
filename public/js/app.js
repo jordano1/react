@@ -1,24 +1,5 @@
 'use strict';
 
-<<<<<<< HEAD
-var appRoot = document.getElementById('app');
-var count = 0;
-var addOne = function addOne() {
-  count++;
-  console.log('addOne', count);
-  renderCounterApp();
-};
-var minusOne = function minusOne() {
-  count--;
-  console.log('minusOne', count);
-  renderCounterApp();
-};
-var reset = function reset() {
-  count = 0;
-  console.log('reset', count);
-  renderCounterApp();
-};
-=======
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -141,6 +122,7 @@ var Options = function (_React$Component4) {
     _createClass(Options, [{
         key: 'removeAll',
         value: function removeAll() {
+            //doesn't work without super binding above in constructor
             console.log(this.props.options);
         }
     }, {
@@ -214,39 +196,8 @@ var AddOption = function (_React$Component6) {
             );
         }
     }]);
->>>>>>> 6146bd4cb2f4dafa3a6655681651da86489bdd46
 
-var renderCounterApp = function renderCounterApp() {
-  var templateTwo = React.createElement(
-    'div',
-    { 'class': 'count' },
-    React.createElement(
-      'h1',
-      null,
-      'Count: ',
-      count
-    ),
-    React.createElement(
-      'button',
-      { onClick: addOne, className: 'button' },
-      '+1'
-    ),
-    React.createElement(
-      'button',
-      { onClick: minusOne, className: 'button' },
-      '-1'
-    ),
-    React.createElement(
-      'button',
-      { onClick: reset, className: 'button' },
-      'Reset'
-    )
-  );
-  ReactDOM.render(templateTwo, appRoot);
-};
+    return AddOption;
+}(React.Component);
 
-<<<<<<< HEAD
-renderCounterApp();
-=======
 ReactDOM.render(React.createElement(RandomizerApp, null), app);
->>>>>>> 6146bd4cb2f4dafa3a6655681651da86489bdd46

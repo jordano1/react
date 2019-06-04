@@ -47,6 +47,7 @@ class Options extends React.Component{
         this.removeAll = this.removeAll.bind(this)
     }
     removeAll(){
+        //doesn't work without super binding above in constructor
         console.log(this.props.options)
     }
     render(){
