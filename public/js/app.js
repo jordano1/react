@@ -13,26 +13,51 @@ var app = document.getElementById('app');
 var RandomizerApp = function (_React$Component) {
     _inherits(RandomizerApp, _React$Component);
 
-    function RandomizerApp() {
+    function RandomizerApp(props) {
         _classCallCheck(this, RandomizerApp);
 
-        return _possibleConstructorReturn(this, (RandomizerApp.__proto__ || Object.getPrototypeOf(RandomizerApp)).apply(this, arguments));
+        //bind this to function 
+        var _this = _possibleConstructorReturn(this, (RandomizerApp.__proto__ || Object.getPrototypeOf(RandomizerApp)).call(this, props));
+
+        _this.deleteOptions = _this.deleteOptions.bind(_this);
+        _this.addOptions = _this.addOptions.bind(_this);
+        _this.state = {
+            options: [1, 2, 3, 4, 5]
+        };
+        return _this;
     }
 
     _createClass(RandomizerApp, [{
+        key: 'addOptions',
+        value: function addOptions() {
+            this.setState(function () {});
+        }
+        //handledeleteoptions
+
+    }, {
+        key: 'deleteOptions',
+        value: function deleteOptions() {
+            this.setState(function () {
+                return { options: [] };
+            });
+        }
+        //handlepick - pass down to action and setup onClick - bind here
+        //randomly pick an option and alert it
+
+    }, {
         key: 'render',
         value: function render() {
-            var title = 'Jordan\'s randomizer app';
-            var subtitle = 'randomizer app';
-            var options = [1, 2, 3];
+            var title = 'Randomizer App';
+            var subtitle = 'Add a little entropy in your life';
             return React.createElement(
                 'div',
                 null,
                 React.createElement(Header, { title: title, subtitle: subtitle }),
-                React.createElement(Action, null),
+                React.createElement(Action, { hasOptions: this.state.options.length > 0, addOptions: this.addOptions }),
                 React.createElement(Option, null),
-                React.createElement(Options, { options: options }),
-                React.createElement(AddOption, null)
+                React.createElement(Options, { options: this.state.options,
+                    deleteOptions: this.deleteOptions
+                })
             );
         }
     }]);
@@ -53,18 +78,16 @@ var Header = function (_React$Component2) {
         key: 'render',
         value: function render() {
             return React.createElement(
-                'nav',
+                'div',
                 null,
                 React.createElement(
                     'h1',
                     { 'class': 'title is-2' },
-                    'title: ',
                     this.props.title
                 ),
                 React.createElement(
                     'h2',
                     { 'class': 'title is-4' },
-                    'subtitle: ',
                     this.props.subtitle
                 )
             );
@@ -96,8 +119,11 @@ var Action = function (_React$Component3) {
                 null,
                 React.createElement(
                     'button',
-                    { onClick: this.getVal },
-                    'What should I do?'
+                    {
+                        onClick: this.getVal,
+                        disabled: !this.props.hasOptions
+                    },
+                    'Action button'
                 )
             );
         }
@@ -109,23 +135,13 @@ var Action = function (_React$Component3) {
 var Options = function (_React$Component4) {
     _inherits(Options, _React$Component4);
 
-    function Options(props) {
+    function Options() {
         _classCallCheck(this, Options);
 
-        //rebind this to removeAll method
-        var _this4 = _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).call(this, props));
-
-        _this4.removeAll = _this4.removeAll.bind(_this4);
-        return _this4;
+        return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).apply(this, arguments));
     }
 
     _createClass(Options, [{
-        key: 'removeAll',
-        value: function removeAll() {
-            //doesn't work without super binding above in constructor
-            console.log(this.props.options);
-        }
-    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
@@ -133,8 +149,8 @@ var Options = function (_React$Component4) {
                 null,
                 React.createElement(
                     'button',
-                    { onClick: this.removeAll },
-                    'remove all'
+                    { onClick: this.props.deleteOptions },
+                    'removeAll'
                 ),
                 this.props.options.map(function (option) {
                     return React.createElement(
@@ -171,33 +187,6 @@ var Option = function (_React$Component5) {
     }]);
 
     return Option;
-}(React.Component);
-
-var AddOption = function (_React$Component6) {
-    _inherits(AddOption, _React$Component6);
-
-    function AddOption() {
-        _classCallCheck(this, AddOption);
-
-        return _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).apply(this, arguments));
-    }
-
-    _createClass(AddOption, [{
-        key: 'render',
-        value: function render() {
-            return React.createElement(
-                'div',
-                null,
-                React.createElement(
-                    'p',
-                    null,
-                    'addOption'
-                )
-            );
-        }
-    }]);
-
-    return AddOption;
 }(React.Component);
 
 ReactDOM.render(React.createElement(RandomizerApp, null), app);
