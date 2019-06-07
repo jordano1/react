@@ -99,18 +99,16 @@ var Header = function (_React$Component2) {
         key: 'render',
         value: function render() {
             return React.createElement(
-                'nav',
+                'div',
                 null,
                 React.createElement(
                     'h1',
                     { 'class': 'title is-2' },
-                    'title: ',
                     this.props.title
                 ),
                 React.createElement(
                     'h2',
                     { 'class': 'title is-4' },
-                    'subtitle: ',
                     this.props.subtitle
                 )
             );

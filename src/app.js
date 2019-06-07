@@ -1,4 +1,5 @@
 const app = document.getElementById('app')
+
 class RandomizerApp extends React.Component{
     constructor(props){
         super(props)
@@ -58,17 +59,17 @@ class RandomizerApp extends React.Component{
     }
 }
 
+
 class Header extends React.Component{
     render(){
         return(
-            <nav>
-                <h1 class='title is-2'>title: {this.props.title}</h1>
-                <h2 class='title is-4'>subtitle: {this.props.subtitle}</h2>            
-            </nav>
+            <div>
+                <h1 class='title is-2'>{this.props.title}</h1>
+                <h2 class='title is-4'>{this.props.subtitle}</h2>
+            </div>
         )
     }
 }
-
 class Action extends React.Component{
     render(){
         return(
