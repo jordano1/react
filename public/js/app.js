@@ -1,24 +1,5 @@
 'use strict';
 
-<<<<<<< HEAD
-var appRoot = document.getElementById('app');
-var count = 0;
-var addOne = function addOne() {
-  count++;
-  console.log('addOne', count);
-  renderCounterApp();
-};
-var minusOne = function minusOne() {
-  count--;
-  console.log('minusOne', count);
-  renderCounterApp();
-};
-var reset = function reset() {
-  count = 0;
-  console.log('reset', count);
-  renderCounterApp();
-};
-=======
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -32,26 +13,72 @@ var app = document.getElementById('app');
 var RandomizerApp = function (_React$Component) {
     _inherits(RandomizerApp, _React$Component);
 
-    function RandomizerApp() {
+    function RandomizerApp(props) {
         _classCallCheck(this, RandomizerApp);
 
-        return _possibleConstructorReturn(this, (RandomizerApp.__proto__ || Object.getPrototypeOf(RandomizerApp)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (RandomizerApp.__proto__ || Object.getPrototypeOf(RandomizerApp)).call(this, props));
+
+        _this.removeAll = _this.removeAll.bind(_this);
+        _this.random = _this.random.bind(_this);
+        _this.addOption = _this.addOption.bind(_this);
+        _this.state = {
+            options: []
+        };
+        return _this;
     }
 
     _createClass(RandomizerApp, [{
+        key: 'random',
+        value: function random() {
+            var rand = Math.floor(Math.random() * this.state.options.length);
+            var option = this.state.options[rand];
+            alert(option);
+        }
+    }, {
+        key: 'addOption',
+        value: function addOption(option) {
+            if (!option) {
+                return 'enter valid value';
+            } else if (this.state.options.indexOf(option) > -1) {
+                return 'this option exists';
+            }
+            this.setState(function (prevState) {
+                return {
+                    options: prevState.options.concat(option)
+                };
+            });
+        }
+    }, {
+        key: 'removeAll',
+        value: function removeAll() {
+            this.setState(function () {
+                return {
+                    options: []
+                };
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             var title = 'Jordan\'s randomizer app';
             var subtitle = 'randomizer app';
-            var options = [1, 2, 3];
+
             return React.createElement(
                 'div',
                 null,
                 React.createElement(Header, { title: title, subtitle: subtitle }),
-                React.createElement(Action, null),
-                React.createElement(Option, null),
-                React.createElement(Options, { options: options }),
-                React.createElement(AddOption, null)
+                React.createElement(Action, { hasOptions: this.state.options.length > 0,
+                    removeAll: this.removeAll,
+                    options: this.state.options,
+                    random: this.random
+                }),
+                React.createElement(Options, {
+                    options: this.state.options,
+                    removeAll: this.removeAll
+                }),
+                React.createElement(AddOption, {
+                    addOption: this.addOption
+                })
             );
         }
     }]);
@@ -103,11 +130,6 @@ var Action = function (_React$Component3) {
     }
 
     _createClass(Action, [{
-        key: 'getVal',
-        value: function getVal() {
-            console.log('pressed');
-        }
-    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
@@ -115,8 +137,13 @@ var Action = function (_React$Component3) {
                 null,
                 React.createElement(
                     'button',
-                    { onClick: this.getVal },
-                    'What should I do?'
+                    { onClick: this.props.random },
+                    'random'
+                ),
+                React.createElement(
+                    'button',
+                    { onClick: this.props.removeAll, disabled: !this.props.hasOptions },
+                    'remove all'
                 )
             );
         }
@@ -128,32 +155,18 @@ var Action = function (_React$Component3) {
 var Options = function (_React$Component4) {
     _inherits(Options, _React$Component4);
 
-    function Options(props) {
+    function Options() {
         _classCallCheck(this, Options);
 
-        //rebind this to removeAll method
-        var _this4 = _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).call(this, props));
-
-        _this4.removeAll = _this4.removeAll.bind(_this4);
-        return _this4;
+        return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).apply(this, arguments));
     }
 
     _createClass(Options, [{
-        key: 'removeAll',
-        value: function removeAll() {
-            console.log(this.props.options);
-        }
-    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
                 'div',
                 null,
-                React.createElement(
-                    'button',
-                    { onClick: this.removeAll },
-                    'remove all'
-                ),
                 this.props.options.map(function (option) {
                     return React.createElement(
                         'p',
@@ -168,85 +181,62 @@ var Options = function (_React$Component4) {
     return Options;
 }(React.Component);
 
-var Option = function (_React$Component5) {
-    _inherits(Option, _React$Component5);
+var AddOption = function (_React$Component5) {
+    _inherits(AddOption, _React$Component5);
 
-    function Option() {
-        _classCallCheck(this, Option);
-
-        return _possibleConstructorReturn(this, (Option.__proto__ || Object.getPrototypeOf(Option)).apply(this, arguments));
-    }
-
-    _createClass(Option, [{
-        key: 'render',
-        value: function render() {
-            return React.createElement(
-                'div',
-                null,
-                this.props.options
-            );
-        }
-    }]);
-
-    return Option;
-}(React.Component);
-
-var AddOption = function (_React$Component6) {
-    _inherits(AddOption, _React$Component6);
-
-    function AddOption() {
+    function AddOption(props) {
         _classCallCheck(this, AddOption);
 
-        return _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).apply(this, arguments));
+        var _this5 = _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
+
+        _this5.addOption = _this5.addOption.bind(_this5);
+        _this5.state = {
+            error: undefined
+        };
+        return _this5;
     }
 
     _createClass(AddOption, [{
+        key: 'addOption',
+        value: function addOption(e) {
+            e.preventDefault();
+            var option = e.target.elements.option.value.trim();
+            //option is just the value submitted in the form
+            //this.props.addOption(option) says one of 2 things
+            //either enter valid value
+            //or this option exists
+            //this.props.addOption(option)
+            var error = this.props.addOption(option);
+            this.setState(function () {
+                return { error: error };
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
                 'div',
                 null,
-                React.createElement(
+                this.state.error && React.createElement(
                     'p',
                     null,
-                    'addOption'
+                    this.state.error
+                ),
+                React.createElement(
+                    'form',
+                    { onSubmit: this.addOption },
+                    React.createElement('input', { type: 'text', name: 'option' }),
+                    React.createElement(
+                        'button',
+                        null,
+                        'add Option'
+                    )
                 )
             );
         }
     }]);
->>>>>>> 6146bd4cb2f4dafa3a6655681651da86489bdd46
 
-var renderCounterApp = function renderCounterApp() {
-  var templateTwo = React.createElement(
-    'div',
-    { 'class': 'count' },
-    React.createElement(
-      'h1',
-      null,
-      'Count: ',
-      count
-    ),
-    React.createElement(
-      'button',
-      { onClick: addOne, className: 'button' },
-      '+1'
-    ),
-    React.createElement(
-      'button',
-      { onClick: minusOne, className: 'button' },
-      '-1'
-    ),
-    React.createElement(
-      'button',
-      { onClick: reset, className: 'button' },
-      'Reset'
-    )
-  );
-  ReactDOM.render(templateTwo, appRoot);
-};
+    return AddOption;
+}(React.Component);
 
-<<<<<<< HEAD
-renderCounterApp();
-=======
 ReactDOM.render(React.createElement(RandomizerApp, null), app);
->>>>>>> 6146bd4cb2f4dafa3a6655681651da86489bdd46
