@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 const app = document.getElementById('app')
 class RandomizerApp extends React.Component{
     render(){
@@ -83,4 +81,3 @@ class AddOption extends React.Component{
 }
 
 ReactDOM.render(<RandomizerApp />, app)
->>>>>>> jordano
