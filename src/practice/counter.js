@@ -1,3 +1,4 @@
+//setup default prop value to 0
 let app = document.getElementById('app')
 let count=0;
 
@@ -12,7 +13,7 @@ class Counter extends React.Component{
         }
     }
     addOne(){
-        this.setState(()=>{
+        this.setState((prevState)=>{
             return{
             count: prevState.count + 1
             }
