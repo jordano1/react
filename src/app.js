@@ -1,3 +1,5 @@
+//stateless functional component
+
 const app = document.getElementById('app')
 
 class RandomizerApp extends React.Component{
@@ -7,7 +9,7 @@ class RandomizerApp extends React.Component{
         this.random = this.random.bind(this)
         this.addOption = this.addOption.bind(this)
         this.state={
-            options: [],
+            options: props.options
         }
     }
     random(){
@@ -21,6 +23,7 @@ class RandomizerApp extends React.Component{
         }else if(this.state.options.indexOf(option) > -1){
             return 'this option exists'
         }
+        //setState calls render
        this.setState((prevState)=>{
            return{
                options: prevState.options.concat(option)
@@ -28,7 +31,7 @@ class RandomizerApp extends React.Component{
        })
     }
     removeAll() {
-       this.setState(()=>{
+       this.setState(()=>{ 
            return{
                options: []
            }
@@ -41,16 +44,18 @@ class RandomizerApp extends React.Component{
         return(
             <div>
                 <Header title={title} subtitle={subtitle} />
-                <Action hasOptions={
-                    this.state.options.length > 0} 
-                    removeAll={this.removeAll}
+                <Action 
+                hasOptions={this.state.options.length > 0} 
+                removeAll={this.removeAll}
                     options={this.state.options} 
                     random={this.random}
                 />
                 <Options 
                     options={this.state.options} 
+                    hasOptions={this.state.options.length > 0} 
                     removeAll={this.removeAll}
                 />
+                <Option/>
                 <AddOption
                     addOption={this.addOption}
                 />
@@ -59,39 +64,90 @@ class RandomizerApp extends React.Component{
     }
 }
 
-
-class Header extends React.Component{
-    render(){
-        return(
-            <div>
-                <h1 class='title is-2'>{this.props.title}</h1>
-                <h2 class='title is-4'>{this.props.subtitle}</h2>
-            </div>
-        )
-    }
-}
-class Action extends React.Component{
-    render(){
-        return(
-            <div>
-                <button onClick={this.props.random}>random</button>
-                <button onClick={this.props.removeAll} disabled={!this.props.hasOptions}>
-                    remove all
-                </button>
-            </div>
-        )
-    }
+RandomizerApp.defaultProps = {
+    options:[]
 }
 
-class Options extends React.Component{
-    render(){
-        return(
-            <div>
-                {this.props.options.map((option)=><p>{option}</p>)}
-            </div>
-        )
-    }
+const Header = (props) =>{
+    return(
+        <div>
+            <h1 class='title is-2'>{props.title}</h1>
+            {props.subtitle && <h2 class='title is-4'>{props.subtitle}</h2>}
+        </div>
+    )
 }
+Header.defaultProps={
+    title: 'anonymous'
+}
+// class Header extends React.Component{
+//     render(){
+//         return(
+//             <div>
+//                 <h1 class='title is-2'>{this.props.title}</h1>
+//                 <h2 class='title is-4'>{this.props.subtitle}</h2>
+//             </div>
+//         )
+//     }
+// }
+
+const Action =(props)=>{
+    return(
+        <div>
+            <button
+                onClick={props.random}
+                disabled={!props.hasOptions}
+            >
+                random
+            </button>
+        </div>
+    )
+}
+// class Action extends React.Component{
+//     render(){
+//         return(
+//             <div>
+//                 <button onClick={this.props.random}>random</button>
+//                 <button onClick={this.props.removeAll} disabled={!this.props.hasOptions}>
+//                     remove all
+//                 </button>
+//             </div>
+//         )
+//     }
+// }
+
+const Options = (props) =>{
+    return(
+        <div>
+            {props.options.map((option)=><p>{option}</p>)}
+            <button onClick={props.removeAll} disabled={!props.hasOptions}>remove all </button>
+        </div>
+    )
+}
+// class Options extends React.Component{
+//     render(){
+//         return(
+//             <div>
+//                 {this.props.options.map((option)=><p>{option}</p>)}
+//                 <button onClick={this.props.removeAll} disabled={!this.props.hasOptions}>remove all </button>
+//             </div>
+//         )
+//     }
+// }
+
+const Option = () =>{
+    return(
+        <div>
+        </div>
+    )
+}
+// class Option extends React.Component{
+//     render(){
+//         return(
+//             <div>
+//             </div>
+//         )
+//     }
+// }
 
 class AddOption extends React.Component{
     constructor(props){
@@ -127,5 +183,16 @@ class AddOption extends React.Component{
         )
     }
 }
+
+//props passed in as first argument
+//if a class based component it would be this.props.name
+// const User = (props) =>{
+//     return(
+//         <div>
+//             <p>Name: {props.name} </p>
+//             <p>Age: {props.age}</p>
+//         </div>
+//     );
+// }
 
 ReactDOM.render(<RandomizerApp />, app)
