@@ -77,7 +77,6 @@ var RandomizerApp = function (_React$Component) {
                 React.createElement(Header, { title: title, subtitle: subtitle }),
                 React.createElement(Action, {
                     hasOptions: this.state.options.length > 0,
-                    deleteAll: this.deleteAll,
                     random: this.random
                 }),
                 React.createElement(Options, {
@@ -196,7 +195,12 @@ var Option = function Option(props) {
                     props.deleteOption(props.optionText);
                 }
             },
-            'Remove'
+            React.createElement(
+                'p',
+                null,
+                'Remove ',
+                props.optionText
+            )
         )
     );
 };
