@@ -8,8 +8,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-//stateless functional component
-
 var app = document.getElementById('app');
 
 var RandomizerApp = function (_React$Component) {
@@ -20,9 +18,10 @@ var RandomizerApp = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (RandomizerApp.__proto__ || Object.getPrototypeOf(RandomizerApp)).call(this, props));
 
-        _this.removeAll = _this.removeAll.bind(_this);
+        _this.deleteAll = _this.deleteAll.bind(_this);
         _this.random = _this.random.bind(_this);
         _this.addOption = _this.addOption.bind(_this);
+        _this.deleteOption = _this.deleteOption.bind(_this);
         _this.state = {
             options: props.options
         };
@@ -44,19 +43,25 @@ var RandomizerApp = function (_React$Component) {
             } else if (this.state.options.indexOf(option) > -1) {
                 return 'this option exists';
             }
-            //setState calls render
             this.setState(function (prevState) {
-                return {
-                    options: prevState.options.concat(option)
-                };
+                return { options: prevState.options.concat(option) };
             });
         }
     }, {
-        key: 'removeAll',
-        value: function removeAll() {
+        key: 'deleteAll',
+        value: function deleteAll() {
             this.setState(function () {
+                return { options: [] };
+            });
+        }
+    }, {
+        key: 'deleteOption',
+        value: function deleteOption(removeOption) {
+            this.setState(function (prevState) {
                 return {
-                    options: []
+                    options: prevState.options.filter(function (option) {
+                        return removeOption !== option;
+                    })
                 };
             });
         }
@@ -72,16 +77,15 @@ var RandomizerApp = function (_React$Component) {
                 React.createElement(Header, { title: title, subtitle: subtitle }),
                 React.createElement(Action, {
                     hasOptions: this.state.options.length > 0,
-                    removeAll: this.removeAll,
-                    options: this.state.options,
+                    deleteAll: this.deleteAll,
                     random: this.random
                 }),
                 React.createElement(Options, {
                     options: this.state.options,
                     hasOptions: this.state.options.length > 0,
-                    removeAll: this.removeAll
+                    deleteAll: this.deleteAll,
+                    deleteOption: this.deleteOption
                 }),
-                React.createElement(Option, null),
                 React.createElement(AddOption, {
                     addOption: this.addOption
                 })
@@ -144,7 +148,7 @@ Header.defaultProps = {
 //         return(
 //             <div>
 //                 <button onClick={this.props.random}>random</button>
-//                 <button onClick={this.props.removeAll} disabled={!this.props.hasOptions}>
+//                 <button onClick={this.props.deleteAll} disabled={!this.props.hasOptions}>
 //                     remove all
 //                 </button>
 //             </div>
@@ -156,18 +160,17 @@ var Options = function Options(props) {
     return React.createElement(
         'div',
         null,
-        props.options.map(function (option) {
-            return React.createElement(
-                'p',
-                null,
-                option
-            );
-        }),
         React.createElement(
             'button',
-            { onClick: props.removeAll, disabled: !props.hasOptions },
-            'remove all '
-        )
+            { onClick: props.deleteAll, disabled: !props.hasOptions },
+            'Delete all '
+        ),
+        props.options.map(function (option) {
+            return React.createElement(Option, {
+                optionText: option,
+                deleteOption: props.deleteOption
+            });
+        })
     );
 };
 // class Options extends React.Component{
@@ -175,14 +178,27 @@ var Options = function Options(props) {
 //         return(
 //             <div>
 //                 {this.props.options.map((option)=><p>{option}</p>)}
-//                 <button onClick={this.props.removeAll} disabled={!this.props.hasOptions}>remove all </button>
+//                 <button onClick={this.props.deleteAll} disabled={!this.props.hasOptions}>remove all </button>
 //             </div>
 //         )
 //     }
 // }
 
-var Option = function Option() {
-    return React.createElement('div', null);
+var Option = function Option(props) {
+    return React.createElement(
+        'div',
+        null,
+        props.optionText,
+        React.createElement(
+            'button',
+            {
+                onClick: function onClick(e) {
+                    props.deleteOption(props.optionText);
+                }
+            },
+            'Remove'
+        )
+    );
 };
 // class Option extends React.Component{
 //     render(){

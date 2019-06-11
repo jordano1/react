@@ -1,4 +1,5 @@
 //setup default prop value to 0
+//take in prop counter
 let app = document.getElementById('app')
 let count=0;
 
@@ -9,7 +10,7 @@ class Counter extends React.Component{
         this.minusOne = this.minusOne.bind(this)
         this.reset = this.reset.bind(this)
         this.state={
-            count: 0
+            count: props.count
         }
     }
     addOne(){
@@ -37,7 +38,7 @@ class Counter extends React.Component{
     reset(){
        this.setState(() => {
         return{
-            count:0
+            count: props.count
         }
        })
     }
@@ -53,37 +54,9 @@ class Counter extends React.Component{
     }
 }
 //create 3 methods: addOne minusOne reset
+Counter.defaultProps = {
+    count: 0
+}
 
-
-ReactDOM.render(<Counter />, app)
-// const appRoot = document.getElementById('app')
-// let count = 0;
-// const addOne = () => {
-//   count++;
-//   renderCounterApp();
-// }
-// const minusOne = () => {
-//   count--;
-//   renderCounterApp();
-// }
-// const reset = () => {
-//   count = 0;
-//   renderCounterApp();
-// }
-
-
-// const renderCounterApp = () => {
-//   const templateTwo = (
-//     <div class="count">
-//       <h1>Count: {count}</h1>
-//       <button onClick={addOne} className="button">+1</button>
-//       <button onClick={minusOne} className="button">-1</button>
-//       <button onClick={reset} className="button">Reset</button>
-//     </div>
-//     );
-//   ReactDOM.render(templateTwo, appRoot);
-// };
-
-// renderCounterApp();
-
-
+//passing defaultProps as a object var 
+ReactDOM.render(<Counter count={-12} />, app)
