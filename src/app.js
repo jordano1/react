@@ -31,12 +31,7 @@ class RandomizerApp extends React.Component{
     }
     deleteOption(removeOption){
         this.setState((prevState)=>({
-            options: prevState.options.filter((option)=>{
-                console.log('removeOption: ', removeOption)
-                console.log('option: ', option)
-                return removeOption === option
-                //true keeps item in array false does not keep item in array
-            })
+            options: prevState.options.filter((option)=>removeOption !== option)
         }))
     }
     render(){

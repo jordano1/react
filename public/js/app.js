@@ -60,10 +60,7 @@ var RandomizerApp = function (_React$Component) {
             this.setState(function (prevState) {
                 return {
                     options: prevState.options.filter(function (option) {
-                        console.log('removeOption: ', removeOption);
-                        console.log('option: ', option);
-                        return removeOption === option;
-                        //true keeps item in array false does not keep item in array
+                        return removeOption !== option;
                     })
                 };
             });
