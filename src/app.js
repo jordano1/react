@@ -43,7 +43,6 @@ class RandomizerApp extends React.Component{
                 <Header title={title} subtitle={subtitle} />
                 <Action 
                 hasOptions={this.state.options.length > 0} 
-                deleteAll={this.deleteAll}
                     random={this.random}
                 />
                 <Options 
@@ -146,7 +145,7 @@ const Option = (props) =>{
                     props.deleteOption(props.optionText)
                 }}
             >
-                Remove
+            <p>Remove {props.optionText}</p>
             </button>
         </div>
     )
