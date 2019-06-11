@@ -8,60 +8,219 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-//setup default prop value to 0
+//stateless functional component
+
 var app = document.getElementById('app');
-var count = 0;
 
-var Counter = function (_React$Component) {
-    _inherits(Counter, _React$Component);
+var RandomizerApp = function (_React$Component) {
+    _inherits(RandomizerApp, _React$Component);
 
-    function Counter(props) {
-        _classCallCheck(this, Counter);
+    function RandomizerApp(props) {
+        _classCallCheck(this, RandomizerApp);
 
-        var _this = _possibleConstructorReturn(this, (Counter.__proto__ || Object.getPrototypeOf(Counter)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (RandomizerApp.__proto__ || Object.getPrototypeOf(RandomizerApp)).call(this, props));
 
-        _this.addOne = _this.addOne.bind(_this);
-        _this.minusOne = _this.minusOne.bind(_this);
-        _this.reset = _this.reset.bind(_this);
+        _this.removeAll = _this.removeAll.bind(_this);
+        _this.random = _this.random.bind(_this);
+        _this.addOption = _this.addOption.bind(_this);
         _this.state = {
-            count: 0
+            options: props.options
         };
         return _this;
     }
 
-    _createClass(Counter, [{
-        key: 'addOne',
-        value: function addOne() {
-            this.setState(function (prevState) {
-                return {
-                    count: prevState.count + 1
-                };
-            });
+    _createClass(RandomizerApp, [{
+        key: 'random',
+        value: function random() {
+            var rand = Math.floor(Math.random() * this.state.options.length);
+            var option = this.state.options[rand];
+            alert(option);
         }
-        // addOne(){
-        //     this.setState((prevState)=>{
-        //         return{
-        //             count: ++count
-        //         }
-        //     });        
-        // }
-
     }, {
-        key: 'minusOne',
-        value: function minusOne() {
+        key: 'addOption',
+        value: function addOption(option) {
+            if (!option) {
+                return 'enter valid value';
+            } else if (this.state.options.indexOf(option) > -1) {
+                return 'this option exists';
+            }
+            //setState calls render
             this.setState(function (prevState) {
                 return {
-                    count: prevState.count - 1
+                    options: prevState.options.concat(option)
                 };
             });
         }
     }, {
-        key: 'reset',
-        value: function reset() {
+        key: 'removeAll',
+        value: function removeAll() {
             this.setState(function () {
                 return {
-                    count: 0
+                    options: []
                 };
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var title = 'Jordan\'s randomizer app';
+            var subtitle = 'randomizer app';
+
+            return React.createElement(
+                'div',
+                null,
+                React.createElement(Header, { title: title, subtitle: subtitle }),
+                React.createElement(Action, {
+                    hasOptions: this.state.options.length > 0,
+                    removeAll: this.removeAll,
+                    options: this.state.options,
+                    random: this.random
+                }),
+                React.createElement(Options, {
+                    options: this.state.options,
+                    hasOptions: this.state.options.length > 0,
+                    removeAll: this.removeAll
+                }),
+                React.createElement(Option, null),
+                React.createElement(AddOption, {
+                    addOption: this.addOption
+                })
+            );
+        }
+    }]);
+
+    return RandomizerApp;
+}(React.Component);
+
+RandomizerApp.defaultProps = {
+    options: []
+};
+
+var Header = function Header(props) {
+    return React.createElement(
+        'div',
+        null,
+        React.createElement(
+            'h1',
+            { 'class': 'title is-2' },
+            props.title
+        ),
+        props.subtitle && React.createElement(
+            'h2',
+            { 'class': 'title is-4' },
+            props.subtitle
+        )
+    );
+};
+Header.defaultProps = {
+    title: 'anonymous'
+    // class Header extends React.Component{
+    //     render(){
+    //         return(
+    //             <div>
+    //                 <h1 class='title is-2'>{this.props.title}</h1>
+    //                 <h2 class='title is-4'>{this.props.subtitle}</h2>
+    //             </div>
+    //         )
+    //     }
+    // }
+
+};var Action = function Action(props) {
+    return React.createElement(
+        'div',
+        null,
+        React.createElement(
+            'button',
+            {
+                onClick: props.random,
+                disabled: !props.hasOptions
+            },
+            'random'
+        )
+    );
+};
+// class Action extends React.Component{
+//     render(){
+//         return(
+//             <div>
+//                 <button onClick={this.props.random}>random</button>
+//                 <button onClick={this.props.removeAll} disabled={!this.props.hasOptions}>
+//                     remove all
+//                 </button>
+//             </div>
+//         )
+//     }
+// }
+
+var Options = function Options(props) {
+    return React.createElement(
+        'div',
+        null,
+        props.options.map(function (option) {
+            return React.createElement(
+                'p',
+                null,
+                option
+            );
+        }),
+        React.createElement(
+            'button',
+            { onClick: props.removeAll, disabled: !props.hasOptions },
+            'remove all '
+        )
+    );
+};
+// class Options extends React.Component{
+//     render(){
+//         return(
+//             <div>
+//                 {this.props.options.map((option)=><p>{option}</p>)}
+//                 <button onClick={this.props.removeAll} disabled={!this.props.hasOptions}>remove all </button>
+//             </div>
+//         )
+//     }
+// }
+
+var Option = function Option() {
+    return React.createElement('div', null);
+};
+// class Option extends React.Component{
+//     render(){
+//         return(
+//             <div>
+//             </div>
+//         )
+//     }
+// }
+
+var AddOption = function (_React$Component2) {
+    _inherits(AddOption, _React$Component2);
+
+    function AddOption(props) {
+        _classCallCheck(this, AddOption);
+
+        var _this2 = _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
+
+        _this2.addOption = _this2.addOption.bind(_this2);
+        _this2.state = {
+            error: undefined
+        };
+        return _this2;
+    }
+
+    _createClass(AddOption, [{
+        key: 'addOption',
+        value: function addOption(e) {
+            e.preventDefault();
+            var option = e.target.elements.option.value.trim();
+            //option is just the value submitted in the form
+            //this.props.addOption(option) says one of 2 things
+            //either enter valid value
+            //or this option exists
+            //this.props.addOption(option)
+            var error = this.props.addOption(option);
+            this.setState(function () {
+                return { error: error };
             });
         }
     }, {
@@ -70,63 +229,37 @@ var Counter = function (_React$Component) {
             return React.createElement(
                 'div',
                 null,
-                React.createElement(
-                    'h1',
-                    { 'class': 'title' },
-                    'Count: ',
-                    this.state.count
+                this.state.error && React.createElement(
+                    'p',
+                    null,
+                    this.state.error
                 ),
                 React.createElement(
-                    'button',
-                    { onClick: this.addOne },
-                    '+1'
-                ),
-                React.createElement(
-                    'button',
-                    { onClick: this.minusOne },
-                    '-1'
-                ),
-                React.createElement(
-                    'button',
-                    { onClick: this.reset },
-                    'reset'
+                    'form',
+                    { onSubmit: this.addOption },
+                    React.createElement('input', { type: 'text', name: 'option' }),
+                    React.createElement(
+                        'button',
+                        null,
+                        'add Option'
+                    )
                 )
             );
         }
     }]);
 
-    return Counter;
+    return AddOption;
 }(React.Component);
-//create 3 methods: addOne minusOne reset
 
-
-ReactDOM.render(React.createElement(Counter, null), app);
-// const appRoot = document.getElementById('app')
-// let count = 0;
-// const addOne = () => {
-//   count++;
-//   renderCounterApp();
-// }
-// const minusOne = () => {
-//   count--;
-//   renderCounterApp();
-// }
-// const reset = () => {
-//   count = 0;
-//   renderCounterApp();
-// }
-
-
-// const renderCounterApp = () => {
-//   const templateTwo = (
-//     <div class="count">
-//       <h1>Count: {count}</h1>
-//       <button onClick={addOne} className="button">+1</button>
-//       <button onClick={minusOne} className="button">-1</button>
-//       <button onClick={reset} className="button">Reset</button>
-//     </div>
+//props passed in as first argument
+//if a class based component it would be this.props.name
+// const User = (props) =>{
+//     return(
+//         <div>
+//             <p>Name: {props.name} </p>
+//             <p>Age: {props.age}</p>
+//         </div>
 //     );
-//   ReactDOM.render(templateTwo, appRoot);
-// };
+// }
 
-// renderCounterApp();
+ReactDOM.render(React.createElement(RandomizerApp, null), app);
