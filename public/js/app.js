@@ -1,5 +1,32 @@
 'use strict';
 
+<<<<<<< HEAD
+// const square = function(x){
+//     return x*x
+// }
+// console.log(square(5))
+
+// const squarrow=(x)=>{
+// return x * x
+// }
+// console.log(squarrow(9))
+
+// const squareOw = (x) => x*x
+// console.log(squarrow(4))
+
+var getFirstName = function getFirstName(x) {
+   return x = x.split(' ')[0];
+};
+var getFirstName2 = function getFirstName2(x) {
+   return x = x.split(' ')[0];
+};
+
+var firstName = "Jordan Olson";
+var firstName2 = "bordan bOlson";
+
+console.log(getFirstName(firstName));
+console.log(getFirstName2(firstName2));
+=======
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -248,3 +275,4 @@ var AddOption = function (_React$Component2) {
 // }
 
 ReactDOM.render(React.createElement(RandomizerApp, null), app);
+>>>>>>> 92e22da7a120e3d1566be2c3abeb54ffa7a20f07

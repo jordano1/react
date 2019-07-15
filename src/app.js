@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const app = document.getElementById('app')
 
 
@@ -119,49 +120,44 @@ const Option = (props) =>{
         </div>
     )
 }
-
-class AddOption extends React.Component{
-    constructor(props){
-        super(props)
-        this.addOption = this.addOption.bind(this)
-        this.state = {
-            error: undefined
-        }
-    }
-    addOption(e){
-        e.preventDefault()
-        const option = e.target.elements.option.value.trim()
-        //option is just the value submitted in the form
-        //this.props.addOption(option) says one of 2 things
-        //either enter valid value
-        //or this option exists
-        //this.props.addOption(option)
-        const error = this.props.addOption(option)
-        this.setState(()=>({error}))
-    }
-    render(){
-        return(
-        <div>
-            {this.state.error && <p>{this.state.error}</p>}
-            <form onSubmit={this.addOption}>
-
-                <input type='text' name='option'/>
-                <button>add Option</button>
-            </form>
-        </div>
-        )
-    }
+=======
+console.log('app.js is running!')
+const user = {
+    name:'Jordan',
+    age:18,
+    location: 'Utah'
+}
+const appData = {
+    'title': 'This is my title',
+    'subtitle': 'this is my subtitle',
+    'options': ["hi","ho"]
 }
 
-//props passed in as first argument
-//if a class based component it would be this.props.name
-// const User = (props) =>{
-//     return(
-//         <div>
-//             <p>Name: {props.name} </p>
-//             <p>Age: {props.age}</p>
-//         </div>
-//     );
-// }
+function getLocation(location){
+    if (location) {
+        return <p>location: {location}</p>
+    }
+}
+const template = 
+<div>
+    <h1>{appData.title}</h1>
+    {appData.subtitle && <p>{appData.subtitle}</p>}
+   <p>{appData.options.length > 0 ? 'here are your options' : 'no options'}</p>
+    <ol>
+        <li>item one</li>
+        <li>item two</li>
+    </ol>
+</div>
 
-ReactDOM.render(<RandomizerApp />, app)
+const templateTwo = 
+<div>
+    <h1>{user.name ? user.name : 'anonymous'}</h1> 
+    {(user.age && user.age >= 18) && <p>age {user.age}</p>}
+
+    {getLocation(user.location)}
+</div>
+>>>>>>> f6562a107c027b69ccc69c2078408e16a61fcdf8
+
+const app = document.getElementById('app')
+
+ReactDOM.render(template, app)
