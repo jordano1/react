@@ -74,16 +74,6 @@ const Header = (props) =>{
 Header.defaultProps={
     title: 'anonymous'
 }
-// class Header extends React.Component{
-//     render(){
-//         return(
-//             <div>
-//                 <h1 class='title is-2'>{this.props.title}</h1>
-//                 <h2 class='title is-4'>{this.props.subtitle}</h2>
-//             </div>
-//         )
-//     }
-// }
 
 const Action =(props)=>{
     return(
@@ -97,18 +87,7 @@ const Action =(props)=>{
         </div>
     )
 }
-// class Action extends React.Component{
-//     render(){
-//         return(
-//             <div>
-//                 <button onClick={this.props.random}>random</button>
-//                 <button onClick={this.props.deleteAll} disabled={!this.props.hasOptions}>
-//                     remove all
-//                 </button>
-//             </div>
-//         )
-//     }
-// }
+
 
 const Options = (props) =>{
     return(
@@ -125,16 +104,6 @@ const Options = (props) =>{
         </div>
     )
 }
-// class Options extends React.Component{
-//     render(){
-//         return(
-//             <div>
-//                 {this.props.options.map((option)=><p>{option}</p>)}
-//                 <button onClick={this.props.deleteAll} disabled={!this.props.hasOptions}>remove all </button>
-//             </div>
-//         )
-//     }
-// }
 
 const Option = (props) =>{
     return(
@@ -145,19 +114,11 @@ const Option = (props) =>{
                     props.deleteOption(props.optionText)
                 }}
             >
-            <p>Remove {props.optionText}</p>
+            <p>Remove <span style="margin:15px">{props.optionText}</span></p>
             </button>
         </div>
     )
 }
-// class Option extends React.Component{
-//     render(){
-//         return(
-//             <div>
-//             </div>
-//         )
-//     }
-// }
 
 class AddOption extends React.Component{
     constructor(props){
