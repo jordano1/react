@@ -18,6 +18,8 @@
   "homepage": "https://github.com/jordano1/react#readme",
   "dependencies": {
     "babel-preset-env": "^1.5.2",
-    "babel-preset-react": "^6.24.1"
+    "babel-preset-react": "^6.24.1",
+    "babel-traverse": "^6.26.0",
+    "lodash": "^4.17.14"
   }
 }

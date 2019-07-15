@@ -1,27 +1,19 @@
-var nameVar = 'jordan';
-nameVar = 'mike';
-console.log('nameVar', nameVar)
+// var nameVar = "jordan", nameTwo = "Olson"
+// console.log(nameVar)
+// console.log(nameTwo)
 
-let nameLet = "jj";
-console.log('nameLet', nameLet)
+// let nameLet = "jojo"
+// console.log(nameLet)
+
+// const nameConst = "Frank";
+// console.log('nameConst:', nameConst)
 
 
-const nameConst = 'frunk';
-console.log(nameConst)
-
-function getPetName() {
-    var petName = "popo";
-    return petName
-}
-const petName = getPetName();
-console.log(petName);
-
-const fullName = "Jordnaonfoaidsjf butts";
-let firstName;
+const fullName =  'bob Olson'
+// let firstName
 if (fullName) {
-
-    firstName = fullName.split(' ')[0];
+     let firstName = fullName.split(' ')[0]
     console.log(firstName)
 }
-//fails because if block level scoped let variable line 21
+
 console.log(firstName)

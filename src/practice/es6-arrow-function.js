@@ -1,24 +1,23 @@
-// function square(x) {
+// const square = function(x){
 //     return x*x
 // }
-// console.log(square(3))
+// console.log(square(5))
 
+// const squarrow=(x)=>{
+// return x * x
+// }
+// console.log(squarrow(9))
 
-// // const squarrow = (x) =>{
-// //     return x*x;
-// // }
+// const squareOw = (x) => x*x
+// console.log(squarrow(4))
 
-// const squarrow = (x) => x*x;
-
-// console.log(squarrow(2))
-
-
-//with return
-const getFirstName = (fullName) =>{
-   return fullName.split(' ')[0]
+const getFirstName = (x) => {
+   return x = x.split(' ')[0]
 }
+const getFirstName2 = (x) => x = x.split(' ')[0]
 
-console.log(getFirstName("cholo saggot"))
-//without
-const getFirstName2 = (fullName) => fullName.split(' ')[0];
-console.log(getFirstName2("j dizzle"))
+let firstName = "Jordan Olson"
+let firstName2 = "bordan bOlson"
+
+console.log(getFirstName(firstName))
+console.log(getFirstName2(firstName2))
