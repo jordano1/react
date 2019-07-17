@@ -7,7 +7,7 @@ const user = {
 const appData = {
     'title': 'This is my title',
     'subtitle': 'this is my subtitle',
-    'options': ["hi","ho"]
+    'options': ['hi','ho']
 }
 
 function getLocation(location){
@@ -25,15 +25,15 @@ const template =
         <li>item two</li>
     </ol>
 </div>
-
-const templateTwo = 
-<div>
-    <h1>{user.name ? user.name : 'anonymous'}</h1> 
-    {(user.age && user.age >= 18) && <p>age {user.age}</p>}
-
-    {getLocation(user.location)}
-</div>
-
+let count = 0
+const addOne = () => console.log('addOne')
+const templateTwo = (
+    <div>
+        <h1>Count: {count}</h1>
+        <button onClick={}>+1</button>
+    </div>
+)
+console.log(templateTwo)
 const app = document.getElementById('app')
 
-ReactDOM.render(template, app)
+ReactDOM.render(templateTwo, app)
