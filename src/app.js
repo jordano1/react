@@ -9,7 +9,7 @@ const user = {
 const appData = {
     'title': 'This is my title',
     'subtitle': 'this is my subtitle',
-    'options': ['hi','ho']
+    'options': []
 }
 
 function getLocation(location){
@@ -17,40 +17,41 @@ function getLocation(location){
         return <p>location: {location}</p>
     }
 }
-const template = 
-<div>
-    <h1>{appData.title}</h1>
-    {appData.subtitle && <p>{appData.subtitle}</p>}
-   <p>{appData.options.length > 0 ? 'here are your options' : 'no options'}</p>
-    <ol>
-        <li>item one</li>
-        <li>item two</li>
-    </ol>
-</div>
+const onFormSubmit = (e) =>{
+    //e is a large selecter for several values and methods on the forms submission
+    e.preventDefault();
 
-let count = 0
-const addOne = () => {
-    count++
-    renderCounterApp()
-}
-const minusOne = () =>{ 
-    count--
-    renderCounterApp()
-}
-const reset = () =>{ 
-    count = 0
-    renderCounterApp()
+    const option = e.target.elements.option.value;
+    console.log(option)
+    if (option) {
+        appData.options.push(option)
+        e.target.elements.option.value = ''
+        render()
+    }
 }
 
-const renderCounterApp = () => {
-    const templateTwo = (
+//create remove all button
+//on click  -> wipe array -> rerender
+
+const render = () =>{
+    const template = (
         <div>
-            <h1>Count: {count}</h1>
-            <button onClick={addOne}>+1</button>
-            <button onClick={minusOne}>-1</button>
-            <button onClick={reset}>reset</button>
-        </div>
+        <h1>{appData.title}</h1>
+            {appData.subtitle && <p>{appData.subtitle}</p>}
+        <p>{appData.options.length > 0 ? 'here are your options' : 'no options'}</p>
+        <p>{appData.options.length}</p>
+        <p>{appData.options}</p>
+        <ol>
+            <li>item one</li>
+            <li>item two</li>
+        </ol>
+        <form onSubmit={onFormSubmit}>
+            <input type='text' name='option'/>
+            <button>Submit</button>
+        </form>
+        
+    </div>
     )
-    ReactDOM.render(templateTwo, app)
+    ReactDOM.render(template, app)
 }
-renderCounterApp()
+render()
