@@ -1,3 +1,5 @@
+const app = document.getElementById('app')
+
 console.log('app.js is running!')
 const user = {
     name:'Jordan',
@@ -25,15 +27,36 @@ const template =
         <li>item two</li>
     </ol>
 </div>
-let count = 0
-const addOne = () => console.log('addOne')
-const templateTwo = (
-    <div>
-        <h1>Count: {count}</h1>
-        <button onClick={}>+1</button>
-    </div>
-)
-console.log(templateTwo)
-const app = document.getElementById('app')
 
-ReactDOM.render(templateTwo, app)
+let count = 0
+const addOne = () => {
+    count++
+    renderCounterApp()
+}
+const minusOne = () =>{ 
+    count--
+    renderCounterApp()
+}
+const reset = () =>{ 
+    count = 0
+    renderCounterApp()
+}
+
+
+
+
+
+
+
+const renderCounterApp = () => {
+    const templateTwo = (
+        <div>
+            <h1>Count: {count}</h1>
+            <button onClick={addOne}>+1</button>
+            <button onClick={minusOne}>-1</button>
+            <button onClick={reset}>reset</button>
+        </div>
+    )
+    ReactDOM.render(templateTwo, app)
+}
+renderCounterApp()
