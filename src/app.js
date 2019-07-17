@@ -1,3 +1,5 @@
+const app = document.getElementById('app')
+
 console.log('app.js is running!')
 const user = {
     name:'Jordan',
@@ -7,7 +9,7 @@ const user = {
 const appData = {
     'title': 'This is my title',
     'subtitle': 'this is my subtitle',
-    'options': ["hi","ho"]
+    'options': ['hi','ho']
 }
 
 function getLocation(location){
@@ -26,14 +28,35 @@ const template =
     </ol>
 </div>
 
-const templateTwo = 
-<div>
-    <h1>{user.name ? user.name : 'anonymous'}</h1> 
-    {(user.age && user.age >= 18) && <p>age {user.age}</p>}
+let count = 0
+const addOne = () => {
+    count++
+    renderCounterApp()
+}
+const minusOne = () =>{ 
+    count--
+    renderCounterApp()
+}
+const reset = () =>{ 
+    count = 0
+    renderCounterApp()
+}
 
-    {getLocation(user.location)}
-</div>
 
-const app = document.getElementById('app')
 
-ReactDOM.render(template, app)
+
+
+
+
+const renderCounterApp = () => {
+    const templateTwo = (
+        <div>
+            <h1>Count: {count}</h1>
+            <button onClick={addOne}>+1</button>
+            <button onClick={minusOne}>-1</button>
+            <button onClick={reset}>reset</button>
+        </div>
+    )
+    ReactDOM.render(templateTwo, app)
+}
+renderCounterApp()
