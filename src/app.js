@@ -42,12 +42,6 @@ const reset = () =>{
     renderCounterApp()
 }
 
-
-
-
-
-
-
 const renderCounterApp = () => {
     const templateTwo = (
         <div>
