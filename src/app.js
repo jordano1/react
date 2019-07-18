@@ -32,24 +32,36 @@ const onFormSubmit = (e) =>{
 
 //create remove all button
 //on click  -> wipe array -> rerender
+function removeAll(e){
+    appData.options = []
+    render()
+}
+const decider = () =>{
+    const rando = Math.floor(Math.random() * appData.options.length);
+    const option = appData.options[rando]
+    alert(option)
+}
 
 const render = () =>{
     const template = (
         <div>
         <h1>{appData.title}</h1>
-            {appData.subtitle && <p>{appData.subtitle}</p>}
+        <h2>{appData.subtitle}</h2>
+
         <p>{appData.options.length > 0 ? 'here are your options' : 'no options'}</p>
-        <p>{appData.options.length}</p>
-        <p>{appData.options}</p>
-        <ol>
-            <li>item one</li>
-            <li>item two</li>
-        </ol>
+        <button onClick={decider} disabled={appData.options.length === 0}>what should i do</button>
+        <button onClick={removeAll}>remove all</button>
+        <ul>
+            {appData.options.map((option)=><li>option {option}</li>)}
+        </ul>
+        
         <form onSubmit={onFormSubmit}>
             <input type='text' name='option'/>
             <button>Submit</button>
+   
+         
         </form>
-        
+       
     </div>
     )
     ReactDOM.render(template, app)

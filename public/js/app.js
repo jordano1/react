@@ -39,6 +39,15 @@ var onFormSubmit = function onFormSubmit(e) {
 
 //create remove all button
 //on click  -> wipe array -> rerender
+function removeAll(e) {
+    appData.options = [];
+    render();
+}
+var decider = function decider() {
+    var rando = Math.floor(Math.random() * appData.options.length);
+    var option = appData.options[rando];
+    alert(option);
+};
 
 var render = function render() {
     var template = React.createElement(
@@ -49,8 +58,8 @@ var render = function render() {
             null,
             appData.title
         ),
-        appData.subtitle && React.createElement(
-            'p',
+        React.createElement(
+            'h2',
             null,
             appData.subtitle
         ),
@@ -60,28 +69,26 @@ var render = function render() {
             appData.options.length > 0 ? 'here are your options' : 'no options'
         ),
         React.createElement(
-            'p',
-            null,
-            appData.options.length
+            'button',
+            { onClick: decider, disabled: appData.options.length === 0 },
+            'what should i do'
         ),
         React.createElement(
-            'p',
-            null,
-            appData.options
+            'button',
+            { onClick: removeAll },
+            'remove all'
         ),
         React.createElement(
-            'ol',
+            'ul',
             null,
-            React.createElement(
-                'li',
-                null,
-                'item one'
-            ),
-            React.createElement(
-                'li',
-                null,
-                'item two'
-            )
+            appData.options.map(function (option) {
+                return React.createElement(
+                    'li',
+                    null,
+                    'option ',
+                    option
+                );
+            })
         ),
         React.createElement(
             'form',
