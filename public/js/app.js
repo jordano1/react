@@ -1,106 +1,37 @@
 'use strict';
 
-var app = document.getElementById('app');
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-console.log('app.js is running!');
-var user = {
-    name: 'Jordan',
-    age: 18,
-    location: 'Utah'
-};
-var appData = {
-    'title': 'This is my title',
-    'subtitle': 'this is my subtitle',
-    'options': []
-};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function getLocation(location) {
-    if (location) {
-        return React.createElement(
-            'p',
-            null,
-            'location: ',
-            location
-        );
+var Person = function () {
+    function Person() {
+        var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'anon';
+        var age = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+        _classCallCheck(this, Person);
+
+        this.age = age;
+        this.name = name;
     }
-}
-var onFormSubmit = function onFormSubmit(e) {
-    //e is a large selecter for several values and methods on the forms submission
-    e.preventDefault();
 
-    var option = e.target.elements.option.value;
-    console.log(option);
-    if (option) {
-        appData.options.push(option);
-        e.target.elements.option.value = '';
-        render();
-    }
-};
+    _createClass(Person, [{
+        key: 'getGreeting',
+        value: function getGreeting() {
+            return 'hi ' + this.name;
+        }
+    }, {
+        key: 'getDescription',
+        value: function getDescription() {
+            return this.name + ' is ' + this.age + ' years old';
+        }
+    }]);
 
-//create remove all button
-//on click  -> wipe array -> rerender
-function removeAll(e) {
-    appData.options = [];
-    render();
-}
-var decider = function decider() {
-    var rando = Math.floor(Math.random() * appData.options.length);
-    var option = appData.options[rando];
-    alert(option);
-};
+    return Person;
+}();
 
-var render = function render() {
-    var template = React.createElement(
-        'div',
-        null,
-        React.createElement(
-            'h1',
-            null,
-            appData.title
-        ),
-        React.createElement(
-            'h2',
-            null,
-            appData.subtitle
-        ),
-        React.createElement(
-            'p',
-            null,
-            appData.options.length > 0 ? 'here are your options' : 'no options'
-        ),
-        React.createElement(
-            'button',
-            { onClick: decider, disabled: appData.options.length === 0 },
-            'what should i do'
-        ),
-        React.createElement(
-            'button',
-            { onClick: removeAll },
-            'remove all'
-        ),
-        React.createElement(
-            'ul',
-            null,
-            appData.options.map(function (option) {
-                return React.createElement(
-                    'li',
-                    null,
-                    'option ',
-                    option
-                );
-            })
-        ),
-        React.createElement(
-            'form',
-            { onSubmit: onFormSubmit },
-            React.createElement('input', { type: 'text', name: 'option' }),
-            React.createElement(
-                'button',
-                null,
-                'Submit'
-            )
-        )
-    );
-    ReactDOM.render(template, app);
-};
-render();
+var me = new Person('bob', 31);
+console.log(me.getDescription());
+
+var other = new Person();
+console.log(other.getDescription());
