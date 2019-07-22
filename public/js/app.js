@@ -21,15 +21,15 @@ var Decident = function (_React$Component) {
         key: 'render',
         value: function render() {
             var title = 'decidn\'t';
-            var subTitle = 'put your mind into the hands of my nips';
-            var options = [1, 2, 3];
+            var subtitle = 'put your mind into the hands of the beep boops';
+            var options = [1, 2, 3, 'thing one', 'thing two', 'thing three'];
             return React.createElement(
                 'div',
                 { id: 'app' },
-                React.createElement(Header, { title: title, subTitle: subTitle }),
+                React.createElement(Header, { title: title, subtitle: subtitle }),
                 React.createElement(Action, null),
                 React.createElement(Options, { options: options }),
-                React.createElement(AddOption, null)
+                React.createElement(AddOption, { options: options })
             );
         }
     }]);
@@ -60,7 +60,7 @@ var Header = function (_React$Component2) {
                 React.createElement(
                     'h2',
                     null,
-                    this.props.subTitle
+                    this.props.subtitle
                 )
             );
         }
@@ -79,6 +79,11 @@ var Action = function (_React$Component3) {
     }
 
     _createClass(Action, [{
+        key: 'handlePick',
+        value: function handlePick() {
+            console.log('yo');
+        }
+    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
@@ -88,6 +93,11 @@ var Action = function (_React$Component3) {
                     'p',
                     null,
                     'Action'
+                ),
+                React.createElement(
+                    'button',
+                    { onClick: this.handlePick },
+                    'what should I do?'
                 )
             );
         }
@@ -95,29 +105,53 @@ var Action = function (_React$Component3) {
 
     return Action;
 }(React.Component);
+//render new p tag for each option (set text, set key)
+
 
 var Options = function (_React$Component4) {
     _inherits(Options, _React$Component4);
 
-    function Options() {
+    function Options(props) {
         _classCallCheck(this, Options);
 
-        return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).apply(this, arguments));
+        var _this4 = _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).call(this, props));
+
+        _this4.removeAll = _this4.removeAll.bind(_this4);
+        return _this4;
     }
 
     _createClass(Options, [{
+        key: 'removeAll',
+        value: function removeAll() {
+            console.log(this.props.options);
+        }
+    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
                 'div',
                 null,
-                this.props.options.map(function (option) {
-                    return React.createElement(
-                        'p',
-                        null,
-                        React.createElement(Option, { optionText: option })
-                    );
-                })
+                React.createElement(
+                    'p',
+                    null,
+                    'options component here'
+                ),
+                React.createElement(
+                    'button',
+                    { onClick: this.removeAll },
+                    'remove all'
+                ),
+                React.createElement(
+                    'p',
+                    null,
+                    this.props.options.map(function (option) {
+                        return React.createElement(
+                            'p',
+                            null,
+                            React.createElement(Option, { option: option })
+                        );
+                    })
+                )
             );
         }
     }]);
@@ -144,7 +178,8 @@ var Option = function (_React$Component5) {
                     'p',
                     null,
                     'option: ',
-                    this.props.optionText
+                    this.props.option,
+                    ' '
                 )
             );
         }
@@ -152,6 +187,10 @@ var Option = function (_React$Component5) {
 
     return Option;
 }(React.Component);
+
+// setup form with text input and submit button
+// wireup onsubmit
+// addOption->fetch value typed -> if value, then alert
 
 var AddOption = function (_React$Component6) {
     _inherits(AddOption, _React$Component6);
@@ -163,15 +202,26 @@ var AddOption = function (_React$Component6) {
     }
 
     _createClass(AddOption, [{
+        key: 'formSubmit',
+        value: function formSubmit(e) {
+            e.preventDefault();
+            var options = e.target.elements.option.value.trim();
+            if (!options) {
+                options = 'yo nothing here boi';
+            }
+            console.log(options);
+        }
+    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
                 'div',
                 null,
                 React.createElement(
-                    'p',
-                    null,
-                    'addOption'
+                    'form',
+                    { onSubmit: this.formSubmit },
+                    React.createElement('input', { type: 'text', name: 'option' }),
+                    React.createElement('button', null)
                 )
             );
         }
