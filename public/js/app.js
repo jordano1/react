@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -182,3 +183,6 @@ var AddOption = function (_React$Component6) {
 
 var app = document.getElementById('app');
 ReactDOM.render(React.createElement(Decident, null), app);
+=======
+"use strict";
+>>>>>>> 63de3c28e0155392b4e0b5d46e689f03c5dfa240
