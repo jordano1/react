@@ -34,20 +34,19 @@ class Student extends Person {
     }
 }
 
+
+
 class Traveler extends Person{
-    constructor(name, age, homeLocation){
+    constructor(name, age, location){
         super(name, age)
-        this.homeLocation = homeLocation
+        this.location = location
     }
-    hasHomeLocation(){
-        return !!this.homeLocation
-    }
-    getHomeLocation(){
-        let homeDescription = super.getDescription();
-        if(this.hasHomeLocation()){
-            homeDescription += ` and is from ${this.homeLocation}`
+    getLocation(){
+        let greeting = super.getGreeting()
+        if(this.location){
+            return `${greeting} I am from ${this.location}`
         }
-        return homeDescription
+        return `${greeting}`
     }
 }
 
@@ -59,8 +58,52 @@ class Traveler extends Person{
 // if no home location
 // 2. Hi. I am jordan Olson
 
-const me = new Traveler('bob', 31, 'Utah')
-console.log(me.getHomeLocation())
+const me = new Traveler('bob', 31, 'oloo')
+console.log(me.getLocation())
 
 const other = new Student();
 console.log(other.getDescription())
+
+// class Animal {
+//     constructor(name) {
+//       this.speed = 0;
+//       this.name = name;
+//     }
+//     run() {
+//       console.log(`${this.name} runs with speed ${this.speed}.`);
+//     }
+//     stop() {
+//       this.speed = 0;
+//       console.log(`${this.name} stopped.`);
+//     }
+//   }
+  
+//   // Inherit from Animal by specifying "extends Animal"
+//   class Rabbit extends Animal {
+//       constructor(name, speed){
+//           super(name, speed)
+//           this.speed = speed
+//       }
+//     hide() {
+//       console.log(`${this.name} hides!`);
+//     }
+//   }
+
+//   class Wolf extends Animal {
+//     constructor(name, speed){
+//         super(name, speed)
+//         this.speed = speed
+//     }
+//   hide() {
+//     console.log(`${this.name} hides!`);
+//   }
+// }
+  
+//   let rabbit = new Rabbit("White Rabbit", 4);
+//   let wolf = new Wolf("White wolf", 5);
+  
+//   rabbit.run(2); // White Rabbit runs with speed 5.
+//   rabbit.hide(); // White Rabbit hides!
+
+//   wolf.run(3); // White wolf runs with speed 5.
+//   wolf.hide(); // White wolf hides!
