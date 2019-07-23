@@ -1,14 +1,31 @@
 class Decident extends React.Component{
+    constructor(props){
+        super(props)
+        this.deleteOptions = this.deleteOptions.bind(this)
+        this.state ={
+            options: [1, 2, 3]
+        }
+    }
+    //handleDeleteOptions
+    deleteOptions(){
+        this.setState(()=>{
+            return{
+                options: [],
+            }
+        })
+    }
     render(){
         const title = 'decidn\'t'
         const subtitle = 'put your mind into the hands of the beep boops'
-        const options = [1, 2, 3, 'thing one', 'thing two', 'thing three']
         return(
             <div id='app'>
                 <Header title={title} subtitle={subtitle} />
-                <Action />
-                <Options options={options} />
-                <AddOption options={options} />
+                <Action hasOptions={this.state.options.length > 0 } />
+                <Options 
+                    options={this.state.options} 
+                    deleteOptions={this.deleteOptions}
+                />
+                <AddOption />
             </div>
         )
     }
@@ -33,7 +50,10 @@ class Action extends React.Component{
         return(
             <div>
                 <p>Action</p>
-                <button onClick={this.handlePick}>what should I do?</button>
+                <button 
+                disabled={!this.props.hasOptions} 
+                onClick={this.handlePick}
+            >what should I do?</button>
             </div>
         )
     }
@@ -42,16 +62,12 @@ class Action extends React.Component{
 class Options extends React.Component{
     constructor(props){
         super(props)
-        this.removeAll = this.removeAll.bind(this)
-    }
-    removeAll(){
-        console.log(this.props.options)
     }
     render(){
         return(
             <div>
                 <p>options component here</p>
-                <button onClick={this.removeAll}>remove all</button>
+                <button onClick={this.props.deleteOptions}>remove all</button>
                 {/*creating option component per map method call rendering the option within option*/}
                 <p>{this.props.options.map((option)=><p>{<Option option={option}/>}</p>)}</p>
             </div>

@@ -1,4 +1,4 @@
-let app = document.getElementById('app')
+let app = document.querySelector('#app')
 class Counter extends React.Component{
     constructor(props){
         super(props)

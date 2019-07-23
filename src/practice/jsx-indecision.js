@@ -11,7 +11,7 @@ const appData = {
     'subtitle': 'this is my subtitle',
     'options': []
 }
-
+  
 function getLocation(location){
     if (location) {
         return <p>location: {location}</p>
