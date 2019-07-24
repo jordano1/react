@@ -22,7 +22,7 @@ var Decident = function (_React$Component) {
         };
         return _this;
     }
-    //handleDeleteOptions
+    //delete options
 
 
     _createClass(Decident, [{
@@ -34,6 +34,17 @@ var Decident = function (_React$Component) {
                 };
             });
         }
+        //add options
+
+    }, {
+        key: 'addOptions',
+        value: function addOptions() {
+            this.setState(function (prevState) {
+                return {};
+            });
+        }
+        //render components
+
     }, {
         key: 'render',
         value: function render() {
@@ -133,10 +144,10 @@ var Action = function (_React$Component3) {
 var Options = function (_React$Component4) {
     _inherits(Options, _React$Component4);
 
-    function Options(props) {
+    function Options() {
         _classCallCheck(this, Options);
 
-        return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).call(this, props));
+        return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).apply(this, arguments));
     }
 
     _createClass(Options, [{
@@ -152,7 +163,7 @@ var Options = function (_React$Component4) {
                 ),
                 React.createElement(
                     'button',
-                    { onClick: this.props.deleteOptions },
+                    { onClick: this.deleteOptions },
                     'remove all'
                 ),
                 React.createElement(
