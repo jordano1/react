@@ -2,8 +2,9 @@ class Decident extends React.Component{
     constructor(props){
         super(props)
         this.deleteOptions = this.deleteOptions.bind(this)
+        this.handlePick = this.handlePick.bind(this)
         this.state ={
-            options: [1, 2, 3]
+            options: ['one', 'two', 'three']
         }
     }
     //delete options
@@ -15,12 +16,10 @@ class Decident extends React.Component{
         })
     }
     //add options
-    addOptions(){
-        this.setState((prevState)=>{
-            return{
-
-            }
-        })
+    handlePick(){
+        let rand = Math.floor(Math.random() * this.state.options.length)
+        let option = this.state.options[rand]
+        return console.log(option)
     }
     //render components
     render(){
@@ -29,10 +28,11 @@ class Decident extends React.Component{
         return(
             <div id='app'>
                 <Header title={title} subtitle={subtitle} />
-                <Action hasOptions={this.state.options.length > 0 } />
+                <Action hasOptions={this.state.options.length > 0 } handlePick={this.handlePick} />
                 <Options 
                     options={this.state.options} 
                     deleteOptions={this.deleteOptions}
+                    
                 />
                 <AddOption />
             </div>
@@ -52,16 +52,14 @@ class Header extends React.Component{
     }
 }
 class Action extends React.Component{
-    handlePick(){
-        console.log('yo')
-    }
+
     render(){
         return(
             <div>
                 <p>Action</p>
                 <button 
                 disabled={!this.props.hasOptions} 
-                onClick={this.handlePick}
+                onClick={this.props.handlePick}
             >what should I do?</button>
             </div>
         )
@@ -73,7 +71,7 @@ class Options extends React.Component{
         return(
             <div>
                 <p>options component here</p>
-                <button onClick={this.deleteOptions}>remove all</button>
+                <button onClick={this.props.deleteOptions}>remove all</button>
                 {/*creating option component per map method call rendering the option within option*/}
                 <p>{this.props.options.map((option)=><p>{<Option option={option}/>}</p>)}</p>
             </div>
@@ -109,7 +107,7 @@ class AddOption extends React.Component{
             <div>
                <form onSubmit={this.formSubmit}>
                <input type='text' name='option' />
-               <button></button>
+               <button>add option</button>
                </form>
             </div>
         )

@@ -17,8 +17,9 @@ var Decident = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Decident.__proto__ || Object.getPrototypeOf(Decident)).call(this, props));
 
         _this.deleteOptions = _this.deleteOptions.bind(_this);
+        _this.handlePick = _this.handlePick.bind(_this);
         _this.state = {
-            options: [1, 2, 3]
+            options: ['one', 'two', 'three']
         };
         return _this;
     }
@@ -37,11 +38,11 @@ var Decident = function (_React$Component) {
         //add options
 
     }, {
-        key: 'addOptions',
-        value: function addOptions() {
-            this.setState(function (prevState) {
-                return {};
-            });
+        key: 'handlePick',
+        value: function handlePick() {
+            var rand = Math.floor(Math.random() * this.state.options.length);
+            var option = this.state.options[rand];
+            return console.log(option);
         }
         //render components
 
@@ -54,10 +55,11 @@ var Decident = function (_React$Component) {
                 'div',
                 { id: 'app' },
                 React.createElement(Header, { title: title, subtitle: subtitle }),
-                React.createElement(Action, { hasOptions: this.state.options.length > 0 }),
+                React.createElement(Action, { hasOptions: this.state.options.length > 0, handlePick: this.handlePick }),
                 React.createElement(Options, {
                     options: this.state.options,
                     deleteOptions: this.deleteOptions
+
                 }),
                 React.createElement(AddOption, null)
             );
@@ -109,11 +111,6 @@ var Action = function (_React$Component3) {
     }
 
     _createClass(Action, [{
-        key: 'handlePick',
-        value: function handlePick() {
-            console.log('yo');
-        }
-    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
@@ -128,7 +125,7 @@ var Action = function (_React$Component3) {
                     'button',
                     {
                         disabled: !this.props.hasOptions,
-                        onClick: this.handlePick
+                        onClick: this.props.handlePick
                     },
                     'what should I do?'
                 )
@@ -163,7 +160,7 @@ var Options = function (_React$Component4) {
                 ),
                 React.createElement(
                     'button',
-                    { onClick: this.deleteOptions },
+                    { onClick: this.props.deleteOptions },
                     'remove all'
                 ),
                 React.createElement(
@@ -246,7 +243,11 @@ var AddOption = function (_React$Component6) {
                     'form',
                     { onSubmit: this.formSubmit },
                     React.createElement('input', { type: 'text', name: 'option' }),
-                    React.createElement('button', null)
+                    React.createElement(
+                        'button',
+                        null,
+                        'add option'
+                    )
                 )
             );
         }
