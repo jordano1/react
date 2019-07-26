@@ -11,57 +11,25 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Decident = function (_React$Component) {
     _inherits(Decident, _React$Component);
 
-    function Decident(props) {
+    function Decident() {
         _classCallCheck(this, Decident);
 
-        var _this = _possibleConstructorReturn(this, (Decident.__proto__ || Object.getPrototypeOf(Decident)).call(this, props));
-
-        _this.deleteOptions = _this.deleteOptions.bind(_this);
-        _this.handlePick = _this.handlePick.bind(_this);
-        _this.state = {
-            options: ['one', 'two', 'three']
-        };
-        return _this;
+        return _possibleConstructorReturn(this, (Decident.__proto__ || Object.getPrototypeOf(Decident)).apply(this, arguments));
     }
-    //delete options
-
 
     _createClass(Decident, [{
-        key: 'deleteOptions',
-        value: function deleteOptions() {
-            this.setState(function () {
-                return {
-                    options: []
-                };
-            });
-        }
-        //add options
-
-    }, {
-        key: 'handlePick',
-        value: function handlePick() {
-            var rand = Math.floor(Math.random() * this.state.options.length);
-            var option = this.state.options[rand];
-            return console.log(option);
-        }
-        //render components
-
-    }, {
         key: 'render',
         value: function render() {
             var title = 'decidn\'t';
             var subtitle = 'put your mind into the hands of the beep boops';
+            var options = [1, 2, 3, 'thing one', 'thing two', 'thing three'];
             return React.createElement(
                 'div',
                 { id: 'app' },
                 React.createElement(Header, { title: title, subtitle: subtitle }),
-                React.createElement(Action, { hasOptions: this.state.options.length > 0, handlePick: this.handlePick }),
-                React.createElement(Options, {
-                    options: this.state.options,
-                    deleteOptions: this.deleteOptions
-
-                }),
-                React.createElement(AddOption, null)
+                React.createElement(Action, null),
+                React.createElement(Options, { options: options }),
+                React.createElement(AddOption, { options: options })
             );
         }
     }]);
@@ -111,6 +79,11 @@ var Action = function (_React$Component3) {
     }
 
     _createClass(Action, [{
+        key: 'handlePick',
+        value: function handlePick() {
+            console.log('yo');
+        }
+    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
@@ -123,10 +96,7 @@ var Action = function (_React$Component3) {
                 ),
                 React.createElement(
                     'button',
-                    {
-                        disabled: !this.props.hasOptions,
-                        onClick: this.props.handlePick
-                    },
+                    { onClick: this.handlePick },
                     'what should I do?'
                 )
             );
@@ -141,13 +111,21 @@ var Action = function (_React$Component3) {
 var Options = function (_React$Component4) {
     _inherits(Options, _React$Component4);
 
-    function Options() {
+    function Options(props) {
         _classCallCheck(this, Options);
 
-        return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).apply(this, arguments));
+        var _this4 = _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).call(this, props));
+
+        _this4.removeAll = _this4.removeAll.bind(_this4);
+        return _this4;
     }
 
     _createClass(Options, [{
+        key: 'removeAll',
+        value: function removeAll() {
+            console.log(this.props.options);
+        }
+    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
@@ -160,7 +138,7 @@ var Options = function (_React$Component4) {
                 ),
                 React.createElement(
                     'button',
-                    { onClick: this.props.deleteOptions },
+                    { onClick: this.removeAll },
                     'remove all'
                 ),
                 React.createElement(
@@ -243,11 +221,7 @@ var AddOption = function (_React$Component6) {
                     'form',
                     { onSubmit: this.formSubmit },
                     React.createElement('input', { type: 'text', name: 'option' }),
-                    React.createElement(
-                        'button',
-                        null,
-                        'add option'
-                    )
+                    React.createElement('button', null)
                 )
             );
         }
