@@ -7,6 +7,10 @@ class Decident extends React.Component{
             options: ['one', 'two', 'three']
         }
     }
+    addOption(option){
+        console.log('this is addOption parent method')
+        console.log(option)
+    }
     //delete options
     deleteOptions(){
         this.setState(()=>{
@@ -34,7 +38,9 @@ class Decident extends React.Component{
                     deleteOptions={this.deleteOptions}
                     
                 />
-                <AddOption />
+                <AddOption 
+                    addOption={this.addOption} 
+                />
             </div>
         )
     }
@@ -94,20 +100,23 @@ class Option extends React.Component{
 // addOption->fetch value typed -> if value, then alert
 
 class AddOption extends React.Component{
+    //we setup the constructor props to pass down this.props.addOption
+    constructor(props){
+        super(props)
+    }
    formSubmit(e){
     e.preventDefault()
-    let options = e.target.elements.option.value.trim()
-    if (!options) {
-        options = 'yo nothing here boi'
+    let option = e.target.elements.option.value.trim()
+    if(option){
+        this.props.addOption(option)
     }
-    console.log(options)
-   }
+}
     render(){
         return(
             <div>
                <form onSubmit={this.formSubmit}>
-               <input type='text' name='option' />
-               <button>add option</button>
+                <input type='text' name='option' />
+                <button>add option</button>
                </form>
             </div>
         )

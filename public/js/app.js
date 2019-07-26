@@ -23,10 +23,16 @@ var Decident = function (_React$Component) {
         };
         return _this;
     }
-    //delete options
-
 
     _createClass(Decident, [{
+        key: 'addOption',
+        value: function addOption(option) {
+            console.log('this is addOption parent method');
+            console.log(option);
+        }
+        //delete options
+
+    }, {
         key: 'deleteOptions',
         value: function deleteOptions() {
             this.setState(function () {
@@ -61,7 +67,9 @@ var Decident = function (_React$Component) {
                     deleteOptions: this.deleteOptions
 
                 }),
-                React.createElement(AddOption, null)
+                React.createElement(AddOption, {
+                    addOption: this.addOption
+                })
             );
         }
     }]);
@@ -217,21 +225,21 @@ var Option = function (_React$Component5) {
 var AddOption = function (_React$Component6) {
     _inherits(AddOption, _React$Component6);
 
-    function AddOption() {
+    //we setup the constructor props to pass down this.props.addOption
+    function AddOption(props) {
         _classCallCheck(this, AddOption);
 
-        return _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
     }
 
     _createClass(AddOption, [{
         key: 'formSubmit',
         value: function formSubmit(e) {
             e.preventDefault();
-            var options = e.target.elements.option.value.trim();
-            if (!options) {
-                options = 'yo nothing here boi';
+            var option = e.target.elements.option.value.trim();
+            if (option) {
+                this.props.addOption(option);
             }
-            console.log(options);
         }
     }, {
         key: 'render',
