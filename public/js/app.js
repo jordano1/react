@@ -57,6 +57,7 @@ var Decident = function (_React$Component) {
         value: function render() {
             var title = 'decidn\'t';
             var subtitle = 'put your mind into the hands of the beep boops';
+            var options = [1, 2, 3, 'thing one', 'thing two', 'thing three'];
             return React.createElement(
                 'div',
                 { id: 'app' },
@@ -119,6 +120,11 @@ var Action = function (_React$Component3) {
     }
 
     _createClass(Action, [{
+        key: 'handlePick',
+        value: function handlePick() {
+            console.log('yo');
+        }
+    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
@@ -131,10 +137,7 @@ var Action = function (_React$Component3) {
                 ),
                 React.createElement(
                     'button',
-                    {
-                        disabled: !this.props.hasOptions,
-                        onClick: this.props.handlePick
-                    },
+                    { onClick: this.handlePick },
                     'what should I do?'
                 )
             );
@@ -149,13 +152,21 @@ var Action = function (_React$Component3) {
 var Options = function (_React$Component4) {
     _inherits(Options, _React$Component4);
 
-    function Options() {
+    function Options(props) {
         _classCallCheck(this, Options);
 
-        return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).apply(this, arguments));
+        var _this4 = _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).call(this, props));
+
+        _this4.removeAll = _this4.removeAll.bind(_this4);
+        return _this4;
     }
 
     _createClass(Options, [{
+        key: 'removeAll',
+        value: function removeAll() {
+            console.log(this.props.options);
+        }
+    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
@@ -168,7 +179,7 @@ var Options = function (_React$Component4) {
                 ),
                 React.createElement(
                     'button',
-                    { onClick: this.props.deleteOptions },
+                    { onClick: this.removeAll },
                     'remove all'
                 ),
                 React.createElement(
@@ -229,7 +240,10 @@ var AddOption = function (_React$Component6) {
     function AddOption(props) {
         _classCallCheck(this, AddOption);
 
-        return _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
+        var _this6 = _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
+
+        _this6.formSubmit = _this6.formSubmit.bind(_this6);
+        return _this6;
     }
 
     _createClass(AddOption, [{

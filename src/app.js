@@ -29,6 +29,7 @@ class Decident extends React.Component{
     render(){
         const title = 'decidn\'t'
         const subtitle = 'put your mind into the hands of the beep boops'
+        const options = [1, 2, 3, 'thing one', 'thing two', 'thing three']
         return(
             <div id='app'>
                 <Header title={title} subtitle={subtitle} />
@@ -58,26 +59,32 @@ class Header extends React.Component{
     }
 }
 class Action extends React.Component{
-
+    handlePick(){
+        console.log('yo')
+    }
     render(){
         return(
             <div>
                 <p>Action</p>
-                <button 
-                disabled={!this.props.hasOptions} 
-                onClick={this.props.handlePick}
-            >what should I do?</button>
+                <button onClick={this.handlePick}>what should I do?</button>
             </div>
         )
     }
 }
 //render new p tag for each option (set text, set key)
 class Options extends React.Component{
+    constructor(props){
+        super(props)
+        this.removeAll = this.removeAll.bind(this)
+    }
+    removeAll(){
+        console.log(this.props.options)
+    }
     render(){
         return(
             <div>
                 <p>options component here</p>
-                <button onClick={this.props.deleteOptions}>remove all</button>
+                <button onClick={this.removeAll}>remove all</button>
                 {/*creating option component per map method call rendering the option within option*/}
                 <p>{this.props.options.map((option)=><p>{<Option option={option}/>}</p>)}</p>
             </div>
@@ -103,6 +110,7 @@ class AddOption extends React.Component{
     //we setup the constructor props to pass down this.props.addOption
     constructor(props){
         super(props)
+        this.formSubmit = this.formSubmit.bind(this)
     }
    formSubmit(e){
     e.preventDefault()
