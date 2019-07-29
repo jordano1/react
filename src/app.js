@@ -3,13 +3,28 @@ class Decident extends React.Component{
         super(props)
         this.deleteOptions = this.deleteOptions.bind(this)
         this.handlePick = this.handlePick.bind(this)
-        this.state ={
-            options: ['one', 'two', 'three']
+        this.addOption=this.addOption.bind(this)
+        this.state={
+            //default state
+            options: []
         }
     }
     addOption(option){
-        console.log('this is addOption parent method')
-        console.log(option)
+        //if option value is empty
+        if(!option){
+            return 'enter valid value'
+        //if what you are submitting is the same value as something within the array
+        }else if(this.state.options.indexOf(option) > -1){
+            let d = this.state.options.length - 1
+            console.log(d)
+            return 'the item: "' + this.state.options[d] +'", you have submitted is a duplicate'
+        }
+
+        this.setState((prevState)=>{
+            return{
+                options: prevState.options.concat(option)
+            }
+        })
     }
     //delete options
     deleteOptions(){
@@ -29,7 +44,6 @@ class Decident extends React.Component{
     render(){
         const title = 'decidn\'t'
         const subtitle = 'put your mind into the hands of the beep boops'
-        const options = [1, 2, 3, 'thing one', 'thing two', 'thing three']
         return(
             <div id='app'>
                 <Header title={title} subtitle={subtitle} />
@@ -59,32 +73,22 @@ class Header extends React.Component{
     }
 }
 class Action extends React.Component{
-    handlePick(){
-        console.log('yo')
-    }
     render(){
         return(
             <div>
-                <p>Action</p>
-                <button onClick={this.handlePick}>what should I do?</button>
+                <p>Action component</p>
             </div>
         )
     }
 }
 //render new p tag for each option (set text, set key)
 class Options extends React.Component{
-    constructor(props){
-        super(props)
-        this.removeAll = this.removeAll.bind(this)
-    }
-    removeAll(){
-        console.log(this.props.options)
-    }
+  
     render(){
         return(
             <div>
                 <p>options component here</p>
-                <button onClick={this.removeAll}>remove all</button>
+                <button onClick={this.props.deleteOptions}>remove all</button>
                 {/*creating option component per map method call rendering the option within option*/}
                 <p>{this.props.options.map((option)=><p>{<Option option={option}/>}</p>)}</p>
             </div>
@@ -110,18 +114,28 @@ class AddOption extends React.Component{
     //we setup the constructor props to pass down this.props.addOption
     constructor(props){
         super(props)
-        this.formSubmit = this.formSubmit.bind(this)
+        this.formSubmit=this.formSubmit.bind(this)
+        this.state ={
+            //undefined by default, there will be no error is what this means
+            error: undefined
+        }
     }
+
    formSubmit(e){
     e.preventDefault()
     let option = e.target.elements.option.value.trim()
-    if(option){
-        this.props.addOption(option)
-    }
+    const error = this.props.addOption(option)
+
+    this.setState(()=>{
+        //if we have a property who's value comes from a variable with the same name you don't have to redundantly call error: error
+        return{ error }
+    })
 }
     render(){
         return(
             <div>
+                {//rendering the error
+                    this.state.error && <p>{this.state.error}</p>}
                <form onSubmit={this.formSubmit}>
                 <input type='text' name='option' />
                 <button>add option</button>

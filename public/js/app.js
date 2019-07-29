@@ -18,8 +18,10 @@ var Decident = function (_React$Component) {
 
         _this.deleteOptions = _this.deleteOptions.bind(_this);
         _this.handlePick = _this.handlePick.bind(_this);
+        _this.addOption = _this.addOption.bind(_this);
         _this.state = {
-            options: ['one', 'two', 'three']
+            //default state
+            options: []
         };
         return _this;
     }
@@ -27,8 +29,21 @@ var Decident = function (_React$Component) {
     _createClass(Decident, [{
         key: 'addOption',
         value: function addOption(option) {
-            console.log('this is addOption parent method');
-            console.log(option);
+            //if option value is empty
+            if (!option) {
+                return 'enter valid value';
+                //if what you are submitting is the same value as something within the array
+            } else if (this.state.options.indexOf(option) > -1) {
+                var d = this.state.options.length - 1;
+                console.log(d);
+                return 'the item: "' + this.state.options[d] + '", you have submitted is a duplicate';
+            }
+
+            this.setState(function (prevState) {
+                return {
+                    options: prevState.options.concat(option)
+                };
+            });
         }
         //delete options
 
@@ -57,7 +72,6 @@ var Decident = function (_React$Component) {
         value: function render() {
             var title = 'decidn\'t';
             var subtitle = 'put your mind into the hands of the beep boops';
-            var options = [1, 2, 3, 'thing one', 'thing two', 'thing three'];
             return React.createElement(
                 'div',
                 { id: 'app' },
@@ -120,11 +134,6 @@ var Action = function (_React$Component3) {
     }
 
     _createClass(Action, [{
-        key: 'handlePick',
-        value: function handlePick() {
-            console.log('yo');
-        }
-    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
@@ -133,12 +142,7 @@ var Action = function (_React$Component3) {
                 React.createElement(
                     'p',
                     null,
-                    'Action'
-                ),
-                React.createElement(
-                    'button',
-                    { onClick: this.handlePick },
-                    'what should I do?'
+                    'Action component'
                 )
             );
         }
@@ -152,21 +156,13 @@ var Action = function (_React$Component3) {
 var Options = function (_React$Component4) {
     _inherits(Options, _React$Component4);
 
-    function Options(props) {
+    function Options() {
         _classCallCheck(this, Options);
 
-        var _this4 = _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).call(this, props));
-
-        _this4.removeAll = _this4.removeAll.bind(_this4);
-        return _this4;
+        return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).apply(this, arguments));
     }
 
     _createClass(Options, [{
-        key: 'removeAll',
-        value: function removeAll() {
-            console.log(this.props.options);
-        }
-    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
@@ -179,7 +175,7 @@ var Options = function (_React$Component4) {
                 ),
                 React.createElement(
                     'button',
-                    { onClick: this.removeAll },
+                    { onClick: this.props.deleteOptions },
                     'remove all'
                 ),
                 React.createElement(
@@ -243,6 +239,10 @@ var AddOption = function (_React$Component6) {
         var _this6 = _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
 
         _this6.formSubmit = _this6.formSubmit.bind(_this6);
+        _this6.state = {
+            //undefined by default, there will be no error is what this means
+            error: undefined
+        };
         return _this6;
     }
 
@@ -251,9 +251,12 @@ var AddOption = function (_React$Component6) {
         value: function formSubmit(e) {
             e.preventDefault();
             var option = e.target.elements.option.value.trim();
-            if (option) {
-                this.props.addOption(option);
-            }
+            var error = this.props.addOption(option);
+
+            this.setState(function () {
+                //if we have a property who's value comes from a variable with the same name you don't have to redundantly call error: error
+                return { error: error };
+            });
         }
     }, {
         key: 'render',
@@ -261,6 +264,12 @@ var AddOption = function (_React$Component6) {
             return React.createElement(
                 'div',
                 null,
+                //rendering the error
+                this.state.error && React.createElement(
+                    'p',
+                    null,
+                    this.state.error
+                ),
                 React.createElement(
                     'form',
                     { onSubmit: this.formSubmit },
