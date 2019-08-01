@@ -4,10 +4,19 @@ class Decident extends React.Component{
         this.deleteOptions = this.deleteOptions.bind(this)
         this.handlePick = this.handlePick.bind(this)
         this.addOption=this.addOption.bind(this)
+        this.deleteOption=this.deleteOption.bind(this)
         this.state={
             //default state
-            options: []
+            options: props.options
         }
+    }
+    deleteOptions(){
+        this.setState(()=>({options: []}))
+    }
+    deleteOption(removeOption){
+       this.setState((prevState)=>({
+           options: prevState.options.filter((option)=>removeOption !== option)
+       }))
     }
     addOption(option){
         //if option value is empty
@@ -19,21 +28,11 @@ class Decident extends React.Component{
             console.log(d)
             return 'the item: "' + this.state.options[d] +'", you have submitted is a duplicate'
         }
-
-        this.setState((prevState)=>{
-            return{
-                options: prevState.options.concat(option)
-            }
-        })
+        this.setState((prevState)=>({options: prevState.options.concat(option)}))
     }
     //delete options
-    deleteOptions(){
-        this.setState(()=>{
-            return{
-                options: []
-            }
-        })
-    }
+    //implicitely return an object({})
+   
     //add options
     handlePick(){
         let rand = Math.floor(Math.random() * this.state.options.length)
@@ -51,60 +50,78 @@ class Decident extends React.Component{
                 <Options 
                     options={this.state.options} 
                     deleteOptions={this.deleteOptions}
+                    deleteOption={this.deleteOption}
                     
                 />
                 <AddOption 
                     addOption={this.addOption} 
+                    hasOptions={this.state.options.length > 0}
                 />
             </div>
         )
     }
 }
 
-
-class Header extends React.Component{
-    render(){
-        return(
-            <div>
-                <h1>{this.props.title}</h1>
-                <h2>{this.props.subtitle}</h2>
-            </div>
-        )
-    }
+Decident.defaultProps = {
+    options: []
 }
-class Action extends React.Component{
-    render(){
-        return(
-            <div>
-                <p>Action component</p>
-            </div>
-        )
-    }
-}
-//render new p tag for each option (set text, set key)
-class Options extends React.Component{
-  
-    render(){
-        return(
-            <div>
-                <p>options component here</p>
-                <button onClick={this.props.deleteOptions}>remove all</button>
-                {/*creating option component per map method call rendering the option within option*/}
-                <p>{this.props.options.map((option)=><p>{<Option option={option}/>}</p>)}</p>
-            </div>
-        )
-    }
+//can setup default props in components
+// Header.defaultProps = {
+//     title: 'some default!'
+// }
+const Header = (props) =>{
+    return(
+        <div>
+            <h1>{props.title}</h1>
+            {props.subtitle && <h2>{props.subtitle}</h2>}
+        </div>
+    )
 }
 
-class Option extends React.Component{
-    render(){
-        return(
-            <div>
-                <p>option: {this.props.option} </p>
-            </div>
-        )
-    }
+
+
+const Action = (props) =>{
+    return(
+        <div>
+            <button onClick={props.handlePick} disabled={!props.hasOptions}>
+                randomize
+            </button>
+        </div>
+    )
 }
+
+const Options = (props) =>{
+    return(
+        <div>
+            <p>options component here</p>
+            <button onClick={props.deleteOptions}>remove all</button>
+            {/*creating option component per map method call rendering the option within option*/}
+            {props.options.map((option)=>(
+                    <Option 
+                        optionText={option}
+                        deleteOption={props.deleteOption}    
+                    />
+                ))
+            }
+        </div>
+    )
+}
+
+const Option = (props) =>{
+    return(
+        <div class='option'>
+            <p>
+                option: {props.optionText} 
+                <button
+                onClick={(e)=>{
+                    props.deleteOption(props.optionText)
+                }}>delete option</button>
+            </p>
+            
+        </div>
+    )
+}
+
 
 // setup form with text input and submit button
 // wireup onsubmit
@@ -126,10 +143,7 @@ class AddOption extends React.Component{
     let option = e.target.elements.option.value.trim()
     const error = this.props.addOption(option)
 
-    this.setState(()=>{
-        //if we have a property who's value comes from a variable with the same name you don't have to redundantly call error: error
-        return{ error }
-    })
+    this.setState(()=>({ error }))
 }
     render(){
         return(
@@ -145,6 +159,14 @@ class AddOption extends React.Component{
     }
 }
 
+// const User = (props) => {
+//     return(
+//         <div>
+//             <p>Name: {props.name}</p>
+//             <p>Age: {props.age}</p>
+//         </div>
+//     )
+// }
 
 const app = document.getElementById('app')
 ReactDOM.render(<Decident />, app)
