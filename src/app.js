@@ -2,14 +2,38 @@ class Decident extends React.Component{
     constructor(props){
         super(props)
         this.deleteOptions = this.deleteOptions.bind(this)
+        this.deleteOption=this.deleteOption.bind(this)
         this.handlePick = this.handlePick.bind(this)
         this.addOption=this.addOption.bind(this)
-        this.deleteOption=this.deleteOption.bind(this)
         this.state={
             //default state
             options: props.options
         }
     }
+    componentDidMount(){
+        //only in class based components
+        const json = localStorage.getItem('options')
+        const options = JSON.parse(json)
+        if (options) {
+            this.setState(()=>({options}))
+        }
+    }
+    componentDidUpdate(prevProps, prevState){
+        // only when components in class change
+        // this.state
+        // this.props
+        // console.log(prevProps)
+        // console.log(prevState)
+        if(prevState.options.length !== this.state.options.length){
+            const json = JSON.stringify(this.state.options)
+            localStorage.setItem('options', json)
+        }
+    }
+    componentWillUnmount(){
+        // not really used
+        console.log('unmount')
+    }
+
     deleteOptions(){
         this.setState(()=>({options: []}))
     }
@@ -24,9 +48,8 @@ class Decident extends React.Component{
             return 'enter valid value'
         //if what you are submitting is the same value as something within the array
         }else if(this.state.options.indexOf(option) > -1){
-            let d = this.state.options.length - 1
-            console.log(d)
-            return 'the item: "' + this.state.options[d] +'", you have submitted is a duplicate'
+            let lastOption = this.state.options.length - 1
+            return 'the item: "' + this.state.options[lastOption] +'", you have submitted is a duplicate'
         }
         this.setState((prevState)=>({options: prevState.options.concat(option)}))
     }
@@ -61,10 +84,10 @@ class Decident extends React.Component{
         )
     }
 }
-
 Decident.defaultProps = {
     options: []
 }
+
 //can setup default props in components
 // Header.defaultProps = {
 //     title: 'some default!'
@@ -113,9 +136,11 @@ const Option = (props) =>{
             <p>
                 option: {props.optionText} 
                 <button
-                onClick={(e)=>{
+                onClick={()=>{
                     props.deleteOption(props.optionText)
-                }}>delete option</button>
+                }}>
+                    delete option
+                </button>
             </p>
             
         </div>

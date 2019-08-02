@@ -17,9 +17,9 @@ var Decident = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Decident.__proto__ || Object.getPrototypeOf(Decident)).call(this, props));
 
         _this.deleteOptions = _this.deleteOptions.bind(_this);
+        _this.deleteOption = _this.deleteOption.bind(_this);
         _this.handlePick = _this.handlePick.bind(_this);
         _this.addOption = _this.addOption.bind(_this);
-        _this.deleteOption = _this.deleteOption.bind(_this);
         _this.state = {
             //default state
             options: props.options
@@ -28,6 +28,37 @@ var Decident = function (_React$Component) {
     }
 
     _createClass(Decident, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            //only in class based components
+            var json = localStorage.getItem('options');
+            var options = JSON.parse(json);
+            if (options) {
+                this.setState(function () {
+                    return { options: options };
+                });
+            }
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            // only when components in class change
+            // this.state
+            // this.props
+            // console.log(prevProps)
+            // console.log(prevState)
+            if (prevState.options.length !== this.state.options.length) {
+                var json = JSON.stringify(this.state.options);
+                localStorage.setItem('options', json);
+            }
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            // not really used
+            console.log('unmount');
+        }
+    }, {
         key: 'deleteOptions',
         value: function deleteOptions() {
             this.setState(function () {
@@ -53,9 +84,8 @@ var Decident = function (_React$Component) {
                 return 'enter valid value';
                 //if what you are submitting is the same value as something within the array
             } else if (this.state.options.indexOf(option) > -1) {
-                var d = this.state.options.length - 1;
-                console.log(d);
-                return 'the item: "' + this.state.options[d] + '", you have submitted is a duplicate';
+                var lastOption = this.state.options.length - 1;
+                return 'the item: "' + this.state.options[lastOption] + '", you have submitted is a duplicate';
             }
             this.setState(function (prevState) {
                 return { options: prevState.options.concat(option) };
@@ -104,6 +134,7 @@ var Decident = function (_React$Component) {
 
 Decident.defaultProps = {
     options: []
+
     //can setup default props in components
     // Header.defaultProps = {
     //     title: 'some default!'
@@ -172,7 +203,7 @@ var Option = function Option(props) {
             React.createElement(
                 'button',
                 {
-                    onClick: function onClick(e) {
+                    onClick: function onClick() {
                         props.deleteOption(props.optionText);
                     } },
                 'delete option'
