@@ -22,7 +22,7 @@ var Decident = function (_React$Component) {
         _this.addOption = _this.addOption.bind(_this);
         _this.state = {
             //default state
-            options: props.options
+            options: []
         };
         return _this;
     }
@@ -135,15 +135,17 @@ var Decident = function (_React$Component) {
 
     return Decident;
 }(React.Component);
+// Decident.defaultProps = {
+//     options: []
+// }
 
-Decident.defaultProps = {
-    options: []
+//can setup default props in components
+// Header.defaultProps = {
+//     title: 'some default!'
+// }
 
-    //can setup default props in components
-    // Header.defaultProps = {
-    //     title: 'some default!'
-    // }
-};var Header = function Header(props) {
+
+var Header = function Header(props) {
     return React.createElement(
         'div',
         null,

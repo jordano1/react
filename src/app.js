@@ -7,7 +7,7 @@ class Decident extends React.Component{
         this.addOption=this.addOption.bind(this)
         this.state={
             //default state
-            options: props.options
+            options: []
         }
     }
     componentDidMount(){
@@ -88,9 +88,9 @@ class Decident extends React.Component{
         )
     }
 }
-Decident.defaultProps = {
-    options: []
-}
+// Decident.defaultProps = {
+//     options: []
+// }
 
 //can setup default props in components
 // Header.defaultProps = {
@@ -124,6 +124,7 @@ const Options = (props) =>{
             
             {//add option message when no options are added
                 props.options.length === 0 && <p>Please add an option to get started</p>}
+
             {/*creating option component per map method call rendering the option within option*/}
             {props.options.map((option)=>(
                     <Option 

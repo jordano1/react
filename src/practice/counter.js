@@ -7,7 +7,7 @@ class Counter extends React.Component{
         this.minusOne = this.minusOne.bind(this)
         this.reset = this.reset.bind(this)
         this.state = {
-            count: props.count
+            count: 0
         }
     }
     plusOne(){
@@ -43,9 +43,9 @@ class Counter extends React.Component{
         )
     }
 }
-//set prop count
-Counter.defaultProps = {
-    count:0
-}
+//set prop count (not necessary so commented out)
+// Counter.defaultProps = {
+//     count:0
+// }
 //put default prop count into component, then set the state to 5 or props idk
 ReactDOM.render(<Counter count={5} />, app)
