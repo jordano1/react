@@ -1,4 +1,5 @@
 // count - setup default prop value to 0
+//add localstorage, will check values, use 'isNaN' to check if is not a number.
 let app = document.querySelector('#app')
 class Counter extends React.Component{
     constructor(props){
