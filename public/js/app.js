@@ -30,26 +30,30 @@ var Decident = function (_React$Component) {
     _createClass(Decident, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            //only in class based components
-            var json = localStorage.getItem('options');
-            var options = JSON.parse(json);
-            if (options) {
-                this.setState(function () {
-                    return { options: options };
-                });
+            try {
+                //getting localstorage array
+                var json = localStorage.getItem('options');
+                var options = JSON.parse(json);
+                if (options) {
+                    this.setState(function () {
+                        return { options: options };
+                    });
+                }
+            } catch (e) {
+                console.log('catch error: ', e);
+                //do nothing for now
             }
         }
     }, {
         key: 'componentDidUpdate',
         value: function componentDidUpdate(prevProps, prevState) {
-            // only when components in class change
-            // this.state
-            // this.props
-            // console.log(prevProps)
-            // console.log(prevState)
+            //setting localstorage array with component array
+
             if (prevState.options.length !== this.state.options.length) {
                 var json = JSON.stringify(this.state.options);
                 localStorage.setItem('options', json);
+
+                console.log('saving data');
             }
         }
     }, {
@@ -173,14 +177,15 @@ var Options = function Options(props) {
         'div',
         null,
         React.createElement(
-            'p',
-            null,
-            'options component here'
-        ),
-        React.createElement(
             'button',
             { onClick: props.deleteOptions },
             'remove all'
+        ),
+        //add option message when no options are added
+        props.options.length === 0 && React.createElement(
+            'p',
+            null,
+            'Please add an option to get started'
         ),
         props.options.map(function (option) {
             return React.createElement(Option, {
@@ -243,6 +248,10 @@ var AddOption = function (_React$Component2) {
             this.setState(function () {
                 return { error: error };
             });
+            if (!error) {
+                // clear input field of values if data is submitted
+                e.target.elements.option.value = '';
+            }
         }
     }, {
         key: 'render',

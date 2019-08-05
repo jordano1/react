@@ -11,22 +11,26 @@ class Decident extends React.Component{
         }
     }
     componentDidMount(){
-        //only in class based components
-        const json = localStorage.getItem('options')
-        const options = JSON.parse(json)
-        if (options) {
-            this.setState(()=>({options}))
+        try {
+            //getting localstorage array
+            const json = localStorage.getItem('options')
+            const options = JSON.parse(json)
+            if(options){
+                this.setState(()=>({options}))
+            }
+        } catch (e) {
+            console.log('catch error: ', e)
+            //do nothing for now
         }
     }
     componentDidUpdate(prevProps, prevState){
-        // only when components in class change
-        // this.state
-        // this.props
-        // console.log(prevProps)
-        // console.log(prevState)
-        if(prevState.options.length !== this.state.options.length){
+        //setting localstorage array with component array
+    
+        if (prevState.options.length !== this.state.options.length) {
             const json = JSON.stringify(this.state.options)
             localStorage.setItem('options', json)
+
+            console.log('saving data')
         }
     }
     componentWillUnmount(){
@@ -116,8 +120,10 @@ const Action = (props) =>{
 const Options = (props) =>{
     return(
         <div>
-            <p>options component here</p>
             <button onClick={props.deleteOptions}>remove all</button>
+            
+            {//add option message when no options are added
+                props.options.length === 0 && <p>Please add an option to get started</p>}
             {/*creating option component per map method call rendering the option within option*/}
             {props.options.map((option)=>(
                     <Option 
@@ -169,6 +175,10 @@ class AddOption extends React.Component{
     const error = this.props.addOption(option)
 
     this.setState(()=>({ error }))
+    if(!error){
+        // clear input field of values if data is submitted
+        e.target.elements.option.value = ''
+    }
 }
     render(){
         return(
