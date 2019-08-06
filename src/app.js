@@ -31,6 +31,7 @@ class Decident extends React.Component{
             localStorage.setItem('options', json)
 
             console.log('saving data')
+            console.log(json)
         }
     }
     componentWillUnmount(){
