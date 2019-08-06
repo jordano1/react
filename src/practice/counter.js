@@ -18,7 +18,7 @@ class Counter extends React.Component{
             this.setState(()=>({count: count}))
         }
     }
-    componentDidUpdate(prevState){
+    componentDidUpdate(prevProps, prevState){
         if (prevState.count !== this.state.count) {
             console.log(this.state.count)
             localStorage.setItem('count', this.state.count)
