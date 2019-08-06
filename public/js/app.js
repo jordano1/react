@@ -28,28 +28,10 @@ var Counter = function (_React$Component) {
         };
         return _this;
     }
+    //watch vid do again
+
 
     _createClass(Counter, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            var stringCount = localStorage.getItem('count');
-            var count = parseInt(stringCount, 10);
-            if (!isNaN(count)) {
-                this.setState(function () {
-                    return { count: count };
-                });
-            }
-        }
-    }, {
-        key: 'componentDidUpdate',
-        value: function componentDidUpdate(prevProps, prevState) {
-            if (prevState.count !== this.state.count) {
-                console.log(this.state.count);
-                localStorage.setItem('count', this.state.count);
-                //console.log(this.state.count)
-            }
-        }
-    }, {
         key: 'plusOne',
         value: function plusOne() {
             this.setState(function (prevState) {

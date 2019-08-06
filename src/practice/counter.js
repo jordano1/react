@@ -11,21 +11,7 @@ class Counter extends React.Component{
             count: 0
         }
     }
-    componentDidMount(){
-        const stringCount = localStorage.getItem('count')
-        const count = parseInt(stringCount, 10)
-        if (!isNaN(count)) {
-            this.setState(()=>({count: count}))
-        }
-    }
-    componentDidUpdate(prevProps, prevState){
-        if (prevState.count !== this.state.count) {
-            console.log(this.state.count)
-            localStorage.setItem('count', this.state.count)
-            //console.log(this.state.count)
-        }
-     
-    }
+    //watch vid do again
     plusOne(){
         this.setState((prevState)=>{
             return{
