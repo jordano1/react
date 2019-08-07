@@ -1,5 +1,5 @@
 // count - setup default prop value to 0
-//add localstorage, will check values, use 'isNaN' to check if is not a number.
+// add localstorage, will check values, use 'isNaN' to check if is not a number.
 let app = document.querySelector('#app')
 class Counter extends React.Component{
     constructor(props){
@@ -11,7 +11,21 @@ class Counter extends React.Component{
             count: 0
         }
     }
-    //watch vid do again
+    // watch vid do again
+    componentDidMount(){
+        const getCount = localStorage.getItem('count')
+        const count = parseInt(getCount, 10)
+        if(!isNaN(count)){
+            console.log(count)
+            this.setState(()=>({count}))
+        }
+    }
+    componentDidUpdate(prevProps, prevState){
+        if(prevState.count != this.state.count){
+            localStorage.setItem('count', this.state.count)
+        }
+
+    }
     plusOne(){
         this.setState((prevState)=>{
             return{
@@ -50,4 +64,4 @@ class Counter extends React.Component{
 //     count:0
 // }
 //put default prop count into component, then set the state to 5 or props idk
-ReactDOM.render(<Counter count={5} />, app)
+ReactDOM.render(<Counter />, app)

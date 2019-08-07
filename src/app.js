@@ -15,6 +15,7 @@ class Decident extends React.Component{
             //getting localstorage array
             const json = localStorage.getItem('options')
             const options = JSON.parse(json)
+            
             if(options){
                 this.setState(()=>({options}))
             }
@@ -22,6 +23,7 @@ class Decident extends React.Component{
             console.log('catch error: ', e)
             //do nothing for now
         }
+        
     }
     componentDidUpdate(prevProps, prevState){
         //setting localstorage array with component array
@@ -29,9 +31,6 @@ class Decident extends React.Component{
         if (prevState.options.length !== this.state.options.length) {
             const json = JSON.stringify(this.state.options)
             localStorage.setItem('options', json)
-
-            console.log('saving data')
-            console.log(json)
         }
     }
     componentWillUnmount(){
@@ -119,7 +118,7 @@ const Action = (props) =>{
 }
 
 const Options = (props) =>{
-    return(
+    return (
         <div>
             <button onClick={props.deleteOptions}>remove all</button>
             
@@ -128,12 +127,12 @@ const Options = (props) =>{
 
             {/*creating option component per map method call rendering the option within option*/}
             {props.options.map((option)=>(
-                    <Option 
-                        optionText={option}
-                        deleteOption={props.deleteOption}    
-                    />
-                ))
-            }
+                <Option 
+                    optionText={option}
+                    deleteOption={props.deleteOption}    
+                />
+            ))
+        }
         </div>
     )
 }
