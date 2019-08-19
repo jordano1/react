@@ -70,8 +70,12 @@
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__utils__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__person__ = __webpack_require__(2);
 //import './utils'
 
+
+console.log(__WEBPACK_IMPORTED_MODULE_1__person__["b" /* isAdult */](17))
+console.log(__WEBPACK_IMPORTED_MODULE_1__person__["a" /* canDrink */](21))
 console.log('app.js is running!')
 console.log(__WEBPACK_IMPORTED_MODULE_0__utils__["b" /* square */](4))
 console.log(__WEBPACK_IMPORTED_MODULE_0__utils__["a" /* add */](4, 4))
@@ -90,6 +94,19 @@ console.log('utils is running')
 const square = x => x*x
 const add = (a, b) => a+b
 // exports - default export -named exports
+
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return isAdult; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return canDrink; });
+//redo these functions in
+const isAdult = age => age >= 18;
+const canDrink = age => age >= 21;
 
 
 
