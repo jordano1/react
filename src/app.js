@@ -1,5 +1,5 @@
 import validator from 'validator'
-console.log(validator.isEmail('test@g.com'));
+import React from 'react';
 
 // //import './utils'
 // import subtract, { square, add } from './utils'
