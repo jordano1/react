@@ -9,5 +9,15 @@ module.exports = {
         // path.join is a method that joins two strings
         path: currentFilePath,
         filename: 'bundle.js'
+    },
+    // setting loaders
+    module:{
+        rules:[{
+            loader: 'babel-loader',
+            test: /\.js$/,
+            exclude: /node_modules/
+        }]
     }
 }
+
+
