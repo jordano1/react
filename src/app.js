@@ -1,7 +1,7 @@
-import ReactDOM from 'react-dom';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import AddOption from './components/AddOption'
-
+import Option from './components/Option'
 class Decident extends React.Component{
     constructor(props){
         super(props)
@@ -116,7 +116,6 @@ class Decident extends React.Component{
         </div>
     )
   }
-  
   const Options = (props) =>{
     return (
         <div>
@@ -127,35 +126,17 @@ class Decident extends React.Component{
   
             {/*creating option component per map method call rendering the option within option*/}
             {props.options.map((option)=>(
-                
                 <Option 
-                    key={option} 
+                    key={option}
                     optionText={option}
                     deleteOption={props.deleteOption}    
                 />
-                
             ))
         }
         </div>
     )
-  }
-  
-  const Option = (props) =>{
-    return(
-        <div className='option'>
-            <p>
-                option: {props.optionText} 
-                <button
-                onClick={()=>{
-                    props.deleteOption(props.optionText)
-                }}>
-                    delete option
-                </button>
-            </p>
-            
-        </div>
-    )
-  }
+}
+
   
 
   const app = document.getElementById('app')

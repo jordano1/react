@@ -11,26 +11,26 @@ import React from 'react'
         }
     }
   
-   formSubmit(e){
-    e.preventDefault()
-    let option = e.target.elements.option.value.trim()
-    const error = this.props.addOption(option)
-  
-    this.setState(()=>({ error }))
-    if(!error){
-        // clear input field of values if data is submitted
-        e.target.elements.option.value = ''
+    formSubmit(e){
+        e.preventDefault()
+        let option = e.target.elements.option.value.trim()
+        const error = this.props.addOption(option)
+    
+        this.setState(()=>({ error }))
+        if(!error){
+            // clear input field of values if data is submitted
+            e.target.elements.option.value = ''
+        }
     }
-  }
     render(){
         return(
             <div>
                 {//rendering the error
                     this.state.error && <p>{this.state.error}</p>}
-               <form onSubmit={this.formSubmit}>
+                <form onSubmit={this.formSubmit}>
                 <input type='text' name='option' />
                 <button>add option</button>
-               </form>
+                </form>
             </div>
         )
     }
