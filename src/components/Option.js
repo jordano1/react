@@ -18,6 +18,7 @@ const Option = (props) =>{
 }
 
 export default Option
+// can do this way
 // export default (props) =>{
 //     return(
 //         <div className='option'>

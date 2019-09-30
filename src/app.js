@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import AddOption from './components/AddOption'
-import Option from './components/Option'
+import Action from './components/Action'
+import Header from './components/Header'
+import Options from './components/Options'
 class Decident extends React.Component{
     constructor(props){
         super(props)
@@ -90,54 +92,6 @@ class Decident extends React.Component{
         )
     }
   }
-
-  
-
-  const Header = (props) =>{
-    return(
-        <div>
-            <h1>{props.title}</h1>
-            {props.subtitle && <h2>{props.subtitle}</h2>}
-        </div>
-    )
-  }
-  
-    //can setup default props in components
-    Header.defaultProps = {
-        title: 'Decidn\'nt'
-    }
-  
-  const Action = (props) =>{
-    return(
-        <div>
-            <button onClick={props.handlePick} disabled={!props.hasOptions}>
-                randomize
-            </button>
-        </div>
-    )
-  }
-  const Options = (props) =>{
-    return (
-        <div>
-            <button onClick={props.deleteOptions}>remove all</button>
-            
-            {//add option message when no options are added
-                props.options.length === 0 && <p>Please add an option to get started</p>}
-  
-            {/*creating option component per map method call rendering the option within option*/}
-            {props.options.map((option)=>(
-                <Option 
-                    key={option}
-                    optionText={option}
-                    deleteOption={props.deleteOption}    
-                />
-            ))
-        }
-        </div>
-    )
-}
-
-  
 
   const app = document.getElementById('app')
   ReactDOM.render(<Decident />, app)

@@ -511,9 +511,17 @@ var _AddOption = __webpack_require__(17);
 
 var _AddOption2 = _interopRequireDefault(_AddOption);
 
-var _Option = __webpack_require__(18);
+var _Action = __webpack_require__(20);
 
-var _Option2 = _interopRequireDefault(_Option);
+var _Action2 = _interopRequireDefault(_Action);
+
+var _Header = __webpack_require__(19);
+
+var _Header2 = _interopRequireDefault(_Header);
+
+var _Options = __webpack_require__(21);
+
+var _Options2 = _interopRequireDefault(_Options);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -630,9 +638,9 @@ var Decident = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { id: 'app' },
-                _react2.default.createElement(Header, { subtitle: subtitle }),
-                _react2.default.createElement(Action, { hasOptions: this.state.options.length > 0, handlePick: this.handlePick }),
-                _react2.default.createElement(Options, {
+                _react2.default.createElement(_Header2.default, { subtitle: subtitle }),
+                _react2.default.createElement(_Action2.default, { hasOptions: this.state.options.length > 0, handlePick: this.handlePick }),
+                _react2.default.createElement(_Options2.default, {
                     options: this.state.options,
                     deleteOptions: this.deleteOptions,
                     deleteOption: this.deleteOption
@@ -647,64 +655,6 @@ var Decident = function (_React$Component) {
 
     return Decident;
 }(_react2.default.Component);
-
-var Header = function Header(props) {
-    return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-            'h1',
-            null,
-            props.title
-        ),
-        props.subtitle && _react2.default.createElement(
-            'h2',
-            null,
-            props.subtitle
-        )
-    );
-};
-
-//can setup default props in components
-Header.defaultProps = {
-    title: 'Decidn\'nt'
-};
-
-var Action = function Action(props) {
-    return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-            'button',
-            { onClick: props.handlePick, disabled: !props.hasOptions },
-            'randomize'
-        )
-    );
-};
-var Options = function Options(props) {
-    return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-            'button',
-            { onClick: props.deleteOptions },
-            'remove all'
-        ),
-        //add option message when no options are added
-        props.options.length === 0 && _react2.default.createElement(
-            'p',
-            null,
-            'Please add an option to get started'
-        ),
-        props.options.map(function (option) {
-            return _react2.default.createElement(_Option2.default, {
-                key: option,
-                optionText: option,
-                deleteOption: props.deleteOption
-            });
-        })
-    );
-};
 
 var app = document.getElementById('app');
 _reactDom2.default.render(_react2.default.createElement(Decident, null), app);
@@ -30129,6 +30079,7 @@ var Option = function Option(props) {
 };
 
 exports.default = Option;
+// can do this way
 // export default (props) =>{
 //     return(
 //         <div className='option'>
@@ -30145,6 +30096,124 @@ exports.default = Option;
 //         </div>
 //     )
 // }
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Header = function Header(props) {
+    return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+            'h1',
+            null,
+            props.title
+        ),
+        props.subtitle && _react2.default.createElement(
+            'h2',
+            null,
+            props.subtitle
+        )
+    );
+};
+//can setup default props in components
+Header.defaultProps = {
+    title: 'Decidn\'nt'
+};
+exports.default = Header;
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Action = function Action(props) {
+    return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+            'button',
+            { onClick: props.handlePick, disabled: !props.hasOptions },
+            'randomize'
+        )
+    );
+};
+
+exports.default = Action;
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Option = __webpack_require__(18);
+
+var _Option2 = _interopRequireDefault(_Option);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Options = function Options(props) {
+    return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+            'button',
+            { onClick: props.deleteOptions },
+            'remove all'
+        ),
+        //add option message when no options are added
+        props.options.length === 0 && _react2.default.createElement(
+            'p',
+            null,
+            'Please add an option to get started'
+        ),
+        props.options.map(function (option) {
+            return _react2.default.createElement(_Option2.default, {
+                key: option,
+                optionText: option,
+                deleteOption: props.deleteOption
+            });
+        })
+    );
+};
+
+exports.default = Options;
 
 /***/ })
 /******/ ]);
