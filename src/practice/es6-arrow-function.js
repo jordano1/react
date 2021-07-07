@@ -12,7 +12,7 @@
 // console.log(squarrow(4))
 
 const getFirstName = (x) => {
-   return x = x.split(' ')[0]
+   x = x.split(' ')[0]
 }
 const getFirstName2 = (x) => x = x.split(' ')[0]
 
